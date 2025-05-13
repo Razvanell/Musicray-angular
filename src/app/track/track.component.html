@@ -1,5 +1,95 @@
 <div class="container py-3" id="main-container">
-  <a class="track mb-3 d-block" routerLink="/track" >WTF</a>
 
- muie
+  <!-- Search bar -->
+  <form class="d-flex mb-3" role="search">
+    <input
+      type="search"
+      class="form-control me-2"
+      placeholder="Search"
+      [(ngModel)]="searchKey"
+      name="searchKey"
+      (ngModelChange)="searchTracks(searchKey)"
+      required
+    />
+  </form>
+
+  <!-- Track and Playlist Table -->
+  <div class="table-responsive shadow-sm">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Artist</th>
+          <th>Title</th>
+          <th class="text-end">
+            <ng-container *ngIf="playlists.length > 0; else noPlaylists">
+              <ul class="list-group">
+                <li *ngFor="let playlist of playlists" class="list-group-item p-0 border-0">
+                  <button 
+                    type="button"
+                    class="btn btn-link w-100 text-start px-3 py-2"
+                    (click)="setCurrentPlaylist(playlist)">
+                    {{ playlist.name }}
+                  </button>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #noPlaylists>
+              <span class="text-muted">No playlists available</span>
+            </ng-template>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let track of tracks">
+          <td>
+            <button
+              type="button"
+              class="btn btn-success btn-sm"
+              (click)="playTrack(track.id.toString())"
+              *ngIf="track?.id !== undefined">
+              <i class="fas fa-play"></i>
+            </button>
+          </td>
+          <td>{{ track.artist }}</td>
+          <td>{{ track.title }}</td>
+          <td class="text-end">
+            <ng-container *ngIf="!isCurrentPlaylistNull() && track?.id !== undefined">
+              <button
+                *ngIf="checkIfTrackIsInCurrentPlaylist(track)"
+                class="btn btn-outline-success btn-sm me-2"
+                (click)="addTrackToPlaylist(track.id)">
+                Add track
+              </button>
+              <button
+                *ngIf="!checkIfTrackIsInCurrentPlaylist(track)"
+                class="btn btn-outline-danger btn-sm"
+                (click)="removeTrackFromPlaylist(track.id)">
+                Remove track
+              </button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No results message -->
+  <div *ngIf="tracks?.length === 0" class="mt-3 alert alert-info" role="alert">
+    <h4 class="alert-heading">No results!</h4>
+    <p>No tracks were found.</p>
+  </div>
+
+  <!-- View all tracks button -->
+  <div class="pt-3 text-end" *ngIf="!viewAll">
+    <button
+      type="button"
+      class="btn btn-primary btn-sm"
+      id="view-all-button"
+      (click)="getTracks()">
+      View all tracks
+    </button>
+  </div>
+
 </div>

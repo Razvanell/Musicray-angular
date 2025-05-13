@@ -1,34 +1,31 @@
 body {
-    margin-top: 20px;
-    background-color: #121212;
-    color: #b3b3b3;
+  margin-top: 20px;
+  background-color: #121212;
+  color: #b3b3b3;
+  overflow-x: hidden;
 }
 
 .search {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .btn {
-    color: #000000;
-    font-weight: 600;
+  color: #000000;
+  font-weight: 600;
 }
 
 .card {
-    margin-bottom: 30px;
-    background-color: #1e1e1e;
-    color: #cacaca;
+  margin-bottom: 30px;
+  background-color: #1e1e1e;
+  color: #cacaca;
 }
 
 .card:hover {
-    border: 1px solid #1db954;
+  border: 1px solid #1db954;
 }
 
 .w-60 {
-    width: 60px;
-}
-
-.w-60 {
-    width: 60px;
+  width: 60px;
 }
 
 h1,
@@ -37,7 +34,21 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 10px;
-    font-weight: 600;
-    font-size: 1rem;
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+}
+
+.list-group-item {
+  background-color: transparent;
+  color: #cacaca;
+  border-color: #333;
+}
+
+.btn-close-white {
+  filter: invert(1);
 }

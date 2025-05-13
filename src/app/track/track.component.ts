@@ -1,24 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Track } from './track';
-import { TrackService } from './track.service';
+import { TrackService } from '../track/track.service';
 import { Playlist } from '../playlist/playlist';
 import { PlaylistService } from '../playlist/playlist.service';
 import { MediaplayerService } from '../mediaplayer/mediaplayer.service';
 import { AuthService } from '../navbar/auth.service';
+import { Track } from '../track/track';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-track',
-  imports: [BrowserModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, CommonModule],
   templateUrl: './track.component.html',
-  styleUrls: ['./track.component.css']
+  styleUrl: './track.component.css'
 })
-export class TrackComponent implements OnInit {
+export class TrackComponent {
   public playlists: Playlist[] = [];
   public tracks: Track[] = [];
   public currentPlaylist!: Playlist;
@@ -33,35 +32,12 @@ export class TrackComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.getFiveTracks();
+    this.trackService.getFiveTracks();
     this.getUserPlaylists();
   }
 
   openComponent(): void {
     this.router.navigate(["/"]);
-  }
-
-  public getFiveTracks(): void {
-    this.trackService.getFiveTracks().subscribe(
-      (response: Track[]) => {
-        this.tracks = response;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-
-  public getTracks(): void {
-    this.viewAll = true;
-    this.trackService.getTracks().subscribe(
-      (response: Track[]) => {
-        this.tracks = response;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
   }
 
   public searchTracks(key: string): void {
@@ -77,10 +53,21 @@ export class TrackComponent implements OnInit {
     if (results.length === 0 || !key) {
       setTimeout(
         () => {
-          this.getTracks();
+          this.trackService.getTracks();
         },
         500);
     }
+  }
+
+    public getTracks(): void {
+    this.trackService.getTracks().subscribe(
+      (response) => {
+        this.tracks = response;
+      },
+      (error) => {
+        alert(error.message);
+      }
+    );
   }
 
   public getUserPlaylists(): void {
@@ -118,38 +105,40 @@ export class TrackComponent implements OnInit {
     return true;
   }
 
-public addTrackToPlaylist(trackId: number): void {
-  if (!this.currentPlaylist) {
-    alert('Please select a playlist first.');
-    return;
-  }
-  this.playlistService.addTrackToPlaylist(this.currentPlaylist, trackId).subscribe(
-    (response: Playlist) => {
-      this.getUserPlaylists(); // Refresh playlist data
-      this.openComponent(); // Close the component/modal
-    },
-    (error: HttpErrorResponse) => {
-      alert(error.message);
+  public addTrackToPlaylist(trackId: number): void {
+    if (!this.currentPlaylist) {
+      alert('Please select a playlist first.');
+      return;
     }
-  );
-}
+    this.playlistService.addTrackToPlaylist(this.currentPlaylist, trackId).subscribe(
+      (response: Playlist) => {
+        this.getUserPlaylists(); // Refresh playlist data
+        this.openComponent(); // Close the component/modal
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 
-public removeTrackFromPlaylist(trackId: number): void {
-  if (!this.currentPlaylist) {
-    alert('Please select a playlist first.');
-    return;
-  }
-  this.playlistService.removeTrackFromPlaylist(this.currentPlaylist, trackId).subscribe(
-    (response: Playlist) => {
-      this.getUserPlaylists(); // Refresh playlist data
-    },
-    (error: HttpErrorResponse) => {
-      alert(error.message);
+  public removeTrackFromPlaylist(trackId: number): void {
+    if (!this.currentPlaylist) {
+      alert('Please select a playlist first.');
+      return;
     }
-  );
-}
+    this.playlistService.removeTrackFromPlaylist(this.currentPlaylist, trackId).subscribe(
+      (response: Playlist) => {
+        this.getUserPlaylists(); // Refresh playlist data
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 
   public playTrack(id: string): void {
     this.mediaplayerService.changeAudioFileSource(`http://localhost:8080/api/track/play/${id}`);
   }
 }
+
+
