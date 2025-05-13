@@ -1,0 +1,46 @@
+body {
+    margin-top: 20px;
+}
+
+.search {
+    margin-bottom: 10px;
+}
+
+.btn {
+    color: black;
+    font-weight: 600;
+}
+
+.modal-content {
+    background: rgb(253, 249, 244);
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    border: 1px solid burlywood;
+}
+
+.gradient-background {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(315deg, rgba(2, 0, 36, 1) 0%, rgb(172, 172, 172) 60%, rgb(238, 202, 148) 100%);
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+}
+
+.w-60 {
+    width: 60px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 10px;
+    font-weight: 600;
+    font-size: 1rem;
+}

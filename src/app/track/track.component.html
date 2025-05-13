@@ -1,0 +1,71 @@
+<div class="container" id="main-container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Search bar -->
+                    <form class="form-inline my-2 my-lg-0">
+                        <input type="search" (ngModelChange)="searchTracks(key.value)" #key="ngModel" ngModel name="key"
+                            id="Search" class="form-control mr-sm-2  search" placeholder="Search" required>
+                    </form>
+
+                    <!-- Track List -->
+                    <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr class="align-self-center my-auto">
+                                    <th> </th>
+                                    <th>Artist</th>
+                                    <th>Title</th>
+                                    <th>
+                                        <select class="btn-sm btn-success select-playlist-button float-right" (click)="getUserPlaylists()">
+                                            <option selected *ngIf="currentPlaylistName=='Playlist'">{{currentPlaylistName}} ▼</option>
+                                            <option *ngFor="let playlist of playlists"
+                                                (click)="setCurrentPlaylist(playlist)">{{playlist?.name}}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let track of tracks">
+                                    <td><button type="button" class="btn btn-success play-button"
+                                            (click)="playTrack(track.id.toString())"><i class="fas fa-play"></i></button></td>
+                                    <td>{{track?.artist}}</td>
+                                    <td>{{track?.title}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-success add-remove-track-button float-right"
+                                            *ngIf="!isCurrentPlaylistNull() && checkIfTrackIsInCurrentPlaylist(track)"
+                                            (click)="addTrackToPlaylist(track.id)">
+                                            <p class="add-remove-track-p">Add track</p>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger add-remove-track-button float-right"
+                                            *ngIf="!isCurrentPlaylistNull() && !checkIfTrackIsInCurrentPlaylist(track)"
+                                            (click)="removeTrackFromPlaylist(track.id)">
+                                            <p class="add-remove-track-p">Remove track</p>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pt-3 border-top text-right" *ngIf="!this.viewAll">
+                            <button type="button" class="btn-sm btn-primary"  id="view-all-button" (click)="getTracks()">View all
+                                tracks</button>
+                        </div>
+                        <!-- Notification for no users -->
+                        <div *ngIf="tracks?.length == 0" class="col-12">
+                            <div class="alert alert-info" role="alert">
+                                <h4 class="alert-heading">No results!</h4>
+                                <p>No tracks were found.</p>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <!--end table-responsive-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

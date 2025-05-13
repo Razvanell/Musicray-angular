@@ -1,0 +1,112 @@
+<div class="container" id="main-container">
+    <!-- Search bar -->
+    <form class="form-inline my-2 my-lg-0">
+      <input type="search" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel name="key" id="Search"
+         class="form-control mr-sm-2  search" placeholder="Search users" required>
+   </form> 
+
+   <!-- Users List -->
+   <div class="row user-list-container">
+      <div *ngFor="let user of users" class="col-md-6 col-xl-3">
+         <div class="card m-b-30 gradient-background">
+            <div class="card-body row">
+               <div class="col-4">
+                  <a href=""><img src="{{user?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+               </div>
+               <div class="col-8 card-title align-self-center mb-0">
+                  <h5>{{user?.firstName}}</h5>
+                  <h5>{{user?.lastName}}</h5>
+               </div>
+            </div>
+            <ul class="list-group list-group-flush">
+               <li class="list-group-item"><i class="fa fa-envelope"></i> {{user?.email}}</li>
+            </ul>
+            <div class="card-body">
+               <div class="float-right btn-group btn-group-sm">
+                  <a (click)="onViewUserPlaylists(user.id)" class="btn btn-success tooltips">Playlists <i
+                        class="fa fa-music"></i> </a>
+                  <a (click)="onOpenModal(user, 'put')" class="btn btn-primary tooltips"><i class="fa fa-pencil"></i>
+                  </a>
+                  <a (click)="onOpenModal(user, 'delete')" class="btn btn-danger tooltips"><i
+                        class="fa fa-times"></i></a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Notification for no users -->
+   <div *ngIf="users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-info" role="alert">
+         <h4 class="alert-heading">NO users!</h4>
+         <p>No users were found.</p>
+      </div>
+   </div>
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteModelLabel">Delete User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p>Are you sure you want to delete user {{deleteUser.email}}?</p>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+               <button *ngIf="deleteUser?.email" (click)="onDeleteUser(deleteUser.email)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Put Modal -->
+<div class="modal fade" id="putUserModal" tabindex="-1" role="dialog" aria-labelledby="userEditModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="putUserModalLabel">Edit User {{putUser.email}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #putForm="ngForm">
+               <input type="hidden" ngModel="{{putUser.id}}" name="id" class="form-control" id="id" placeholder="id">
+               <input type="hidden" ngModel="{{putUser.email}}" name="email" class="form-control" id="email"
+                  placeholder="User email">
+               <input type="hidden" ngModel="{{putUser.password}}" name="password" class="form-control" id="password"
+                  placeholder="User email">
+               <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" ngModel="{{putUser.firstName}}" name="firstName" class="form-control"
+                     id="firstName" aria-describedby="emailHelp" placeholder="First Name">
+               </div>
+               <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" ngModel="{{putUser.lastName}}" name="lastName" class="form-control" id="lastName"
+                     aria-describedby="emailHelp" placeholder="Last Name">
+               </div>
+               <div class="form-group">
+                  <label for="imageUrl">Image URL</label>
+                  <input type="text" ngModel="{{putUser.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl"
+                     placeholder="Image URL">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                  <button (click)="onPutUser(putForm.value)" data-dismiss="modal" class="btn btn-primary">Save
+                     changes</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,6 +1,16 @@
+import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { appRoutes } from './app/app.routes';  // Import the routes from the new `app.routes.ts`
+import { AppComponent } from './app/app.component';  // Your standalone app component
+import { environment } from './environments/environment';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+if (environment.production) {
+  enableProdMode();
+}
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(appRoutes),  // Provide the routing configuration
+  ],
+}).catch(err => console.error(err));

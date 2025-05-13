@@ -1,0 +1,29 @@
+.navbar {
+    background-color: black;
+    /*bottom position*/
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+#logo {
+    color: burlywood
+}
+
+a {
+    font-size: 1rem;
+}
+
+#mdb-navbar li a {
+    color: rgb(245, 201, 173);
+}
+
+#mdb-navbar li a:hover {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+h5 {
+    font-size: 1.2rem;
+}
