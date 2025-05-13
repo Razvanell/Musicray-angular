@@ -1,114 +1,107 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
-   <a class="navbar-brand">MDB</a>
-    <a class="navbar-brand" routerLink="/user" id="logo">Users</a>
- 
-    <!-- Switches to dropdown menu on mobile devices-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-       aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-       <span class="navbar-toggler-icon"></span>
-    </button>
- 
-    <div class="collapse navbar-collapse" id="navbarColor02">
-       <ul class="navbar-nav mr-auto" id="mdb-navbar">
-          <li class="nav-item active">
-             <a class="nav-link" routerLink="/"> To Music Library <span class="sr-only">(current)</span></a>
-          </li>
-       </ul>
-       <ul class="navbar-nav ml-auto" id="mdb-navbar">
-          <li class="nav-item active" *ngIf="authService?.user == undefined">
-             <a class="nav-link" (click)="onOpenNavModal('login')"> Login <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active" *ngIf="authService?.user == undefined">
-             <a class="nav-link" (click)="onOpenNavModal('post')"> Register <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active" *ngIf="authService.user as user">
-            <a class="nav-link"> {{ user.email || 'Guest' }}</a>
-         </li>
-         <li class="nav-item active" *ngIf="authService?.user != undefined">
-            <a class="nav-link" (click)="authService.logOut()"> Logout</a>
-         </li>
-       </ul>
- 
-    </div>
- </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand">MDB</a>
+  <a class="navbar-brand" routerLink="/user" routerLinkActive="active" ariaCurrentWhenActive="page" id="logo">Users</a>
+
+  <!-- Dropdown toggle button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav me-auto" id="mdb-navbar">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/track" routerLinkActive="active" ariaCurrentWhenActive="page">To Music Library</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto" id="mdb-navbar">
+      <li class="nav-item" *ngIf="authService?.user == undefined">
+        <a class="nav-link" (click)="onOpenNavModal('login')">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="authService?.user == undefined">
+        <a class="nav-link" (click)="onOpenNavModal('post')">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.user as user">
+        <a class="nav-link">{{ user.email || 'Guest' }}</a>
+      </li>
+      <li class="nav-item" *ngIf="authService?.user != undefined">
+        <a class="nav-link" (click)="authService.logOut()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <!-- Login User Modal -->
-<div class="modal fade" id="loginUserModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="loginUserModalLabel">Login</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-             </button>
+<div class="modal fade" id="loginUserModal" tabindex="-1" aria-labelledby="loginUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginUserModalLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email" required>
           </div>
-          <div class="modal-body">
-             <form [formGroup]="loginForm">
-                <div class="form-group">
-                   <label for="email">Email Address</label>
-                   <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email"
-                      required>
-                </div>
-                <div class="form-group">
-                   <label for="password">Password</label>
-                   <input type="password" formControlName="password" class="form-control" id="password"
-                      placeholder="Password" required>
-                </div>
- 
-                <div class="modal-footer">
-                   <button type="button" id="login-user-form" class="btn btn-danger" data-dismiss="modal">Close</button>
-                   <button [disabled]="loginForm.invalid" (click)="onLoginUser()" type="submit"
-                      class="btn btn-success">Login</button>
-                </div>
-             </form>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password"
+              required>
           </div>
-       </div>
+          <div class="modal-footer">
+            <button type="button" id="login-user-form" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button [disabled]="loginForm.invalid" (click)="onLoginUser()" type="submit"
+              class="btn btn-success">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
- </div>
- 
- <!-- Post User Modal -->
- <div class="modal fade" id="postUserModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="postUserModalLabel">Register</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-             </button>
+  </div>
+</div>
+
+<!-- Post User Modal -->
+<div class="modal fade" id="postUserModal" tabindex="-1" aria-labelledby="postUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="postUserModalLabel">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="postForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" id="firstName"
+              placeholder="First Name" required>
           </div>
-          <div class="modal-body">
-             <form [formGroup]="postForm">
-                <div class="form-group">
-                   <label for="firstName">First Name</label>
-                   <input type="text" formControlName="firstName" class="form-control" id="firstName"
-                      placeholder="First Name" required>
-                </div>
-                <div class="form-group">
-                   <label for="lastName">Last Name</label>
-                   <input type="text" formControlName="lastName" class="form-control" id="lastName"
-                      placeholder="Last Name" required>
-                </div>
-                <div class="form-group">
-                   <label for="email">Email Address</label>
-                   <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email"
-                      required>
-                </div>
-                <div class="form-group">
-                   <label for="password">Password</label>
-                   <input type="password" formControlName="password" class="form-control" id="password"
-                      placeholder="Password" required>
-                   <br>
-                   <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword"
-                      placeholder="Confirm password">
-                </div>
- 
-                <div class="modal-footer">
-                   <button type="button" id="post-user-form" class="btn btn-danger" data-dismiss="modal">Close</button>
-                   <button [disabled]="postForm.invalid" (click)="onPostUser()" type="submit"
-                      class="btn btn-primary">Register</button>
-                </div>
-             </form>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Last Name"
+              required>
           </div>
-       </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password"
+              placeholder="Password" required>
+            <br>
+            <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword"
+              placeholder="Confirm password">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="post-user-form" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button [disabled]="postForm.invalid" (click)="onPostUser()" type="submit"
+              class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
     </div>
- </div>
+  </div>
+</div>
+
+

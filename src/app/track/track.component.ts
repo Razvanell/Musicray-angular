@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Track } from './track';
 import { TrackService } from './track.service';
 import { Playlist } from '../playlist/playlist';
@@ -12,11 +12,9 @@ import { PlaylistService } from '../playlist/playlist.service';
 import { MediaplayerService } from '../mediaplayer/mediaplayer.service';
 import { AuthService } from '../navbar/auth.service';
 
-
 @Component({
   selector: 'app-track',
-  imports
-  : [BrowserModule, MatButtonModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './track.component.html',
   styleUrls: ['./track.component.css']
 })
@@ -26,6 +24,7 @@ export class TrackComponent implements OnInit {
   public currentPlaylist!: Playlist;
   public currentPlaylistName: String = "Playlist";
   public viewAll = false;
+  searchKey: string = '';
 
   constructor(public authService: AuthService,
     private trackService: TrackService,
@@ -39,7 +38,7 @@ export class TrackComponent implements OnInit {
   }
 
   openComponent(): void {
-    this.router.navigate(["/", "track"])
+    this.router.navigate(["/"]);
   }
 
   public getFiveTracks(): void {
@@ -101,49 +100,56 @@ export class TrackComponent implements OnInit {
   }
 
   public setCurrentPlaylist(currentPlaylist: Playlist): void {
-    this.currentPlaylist = currentPlaylist;
-    this.currentPlaylistName = currentPlaylist.name;
+    if (currentPlaylist) {
+      this.currentPlaylist = currentPlaylist;
+      this.currentPlaylistName = currentPlaylist.name;
+      console.log(`Current playlist set to: ${this.currentPlaylistName}`);
+    }
   }
 
   public isCurrentPlaylistNull(): boolean {
-    if (this.currentPlaylist == null) {
-      return true;
-    } 
-    return false;
+    return !this.currentPlaylist;
   }
 
   public checkIfTrackIsInCurrentPlaylist(track: Track): boolean {
     if (this.currentPlaylist) {
-      if (this.currentPlaylist.tracks.some(playlistTrack => playlistTrack.id === track.id)) {
-        return false;
-      }
+      return !this.currentPlaylist.tracks.some(playlistTrack => playlistTrack.id === track.id);
     }
     return true;
   }
 
-  public addTrackToPlaylist(trackId: number): void {
-    this.playlistService.addTrackToPlaylist(this.currentPlaylist, trackId).subscribe(
-      (response: Playlist) => {
-        this.openComponent;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+public addTrackToPlaylist(trackId: number): void {
+  if (!this.currentPlaylist) {
+    alert('Please select a playlist first.');
+    return;
   }
+  this.playlistService.addTrackToPlaylist(this.currentPlaylist, trackId).subscribe(
+    (response: Playlist) => {
+      this.getUserPlaylists(); // Refresh playlist data
+      this.openComponent(); // Close the component/modal
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+  );
+}
 
-  public removeTrackFromPlaylist(trackId: number): void {
-    this.playlistService.removeTrackFromPlaylist(this.currentPlaylist, trackId).subscribe(
-      (response: Playlist) => {
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+public removeTrackFromPlaylist(trackId: number): void {
+  if (!this.currentPlaylist) {
+    alert('Please select a playlist first.');
+    return;
   }
+  this.playlistService.removeTrackFromPlaylist(this.currentPlaylist, trackId).subscribe(
+    (response: Playlist) => {
+      this.getUserPlaylists(); // Refresh playlist data
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+  );
+}
 
-  public playTrack(id: string) {
-    this.mediaplayerService.changeAudioFileSource("http://localhost:8081/api/track/play/" + id);
+  public playTrack(id: string): void {
+    this.mediaplayerService.changeAudioFileSource(`http://localhost:8080/api/track/play/${id}`);
   }
-
 }

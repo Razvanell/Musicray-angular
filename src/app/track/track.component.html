@@ -1,71 +1,114 @@
-<div class="container" id="main-container">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
+<div class="container py-3" id="main-container">
+  <a class="navbar-brand mb-3 d-block" routerLink="/track" id="logo">Users</a>
 
-                    <!-- Search bar -->
-                    <form class="form-inline my-2 my-lg-0">
-                        <input type="search" (ngModelChange)="searchTracks(key.value)" #key="ngModel" ngModel name="key"
-                            id="Search" class="form-control mr-sm-2  search" placeholder="Search" required>
-                    </form>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
 
-                    <!-- Track List -->
-                    <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr class="align-self-center my-auto">
-                                    <th> </th>
-                                    <th>Artist</th>
-                                    <th>Title</th>
-                                    <th>
-                                        <select class="btn-sm btn-success select-playlist-button float-right" (click)="getUserPlaylists()">
-                                            <option selected *ngIf="currentPlaylistName=='Playlist'">{{currentPlaylistName}} ▼</option>
-                                            <option *ngFor="let playlist of playlists"
-                                                (click)="setCurrentPlaylist(playlist)">{{playlist?.name}}</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                            </thead>
+          <!-- Search bar -->
+          <form class="d-flex mb-3">
+            <input
+              type="search"
+              class="form-control me-2"
+              placeholder="Search"
+              [(ngModel)]="searchKey"
+              name="searchKey"
+              (ngModelChange)="searchTracks(searchKey)"
+              required
+            />
+          </form>
 
-                            <tbody>
-                                <tr *ngFor="let track of tracks">
-                                    <td><button type="button" class="btn btn-success play-button"
-                                            (click)="playTrack(track.id.toString())"><i class="fas fa-play"></i></button></td>
-                                    <td>{{track?.artist}}</td>
-                                    <td>{{track?.title}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-success add-remove-track-button float-right"
-                                            *ngIf="!isCurrentPlaylistNull() && checkIfTrackIsInCurrentPlaylist(track)"
-                                            (click)="addTrackToPlaylist(track.id)">
-                                            <p class="add-remove-track-p">Add track</p>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger add-remove-track-button float-right"
-                                            *ngIf="!isCurrentPlaylistNull() && !checkIfTrackIsInCurrentPlaylist(track)"
-                                            (click)="removeTrackFromPlaylist(track.id)">
-                                            <p class="add-remove-track-p">Remove track</p>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="pt-3 border-top text-right" *ngIf="!this.viewAll">
-                            <button type="button" class="btn-sm btn-primary"  id="view-all-button" (click)="getTracks()">View all
-                                tracks</button>
-                        </div>
-                        <!-- Notification for no users -->
-                        <div *ngIf="tracks?.length == 0" class="col-12">
-                            <div class="alert alert-info" role="alert">
-                                <h4 class="alert-heading">No results!</h4>
-                                <p>No tracks were found.</p>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
-                    <!--end table-responsive-->
-                </div>
+          <!-- Track List -->
+          <div class="table-responsive my-custom-scrollbar">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Artist</th>
+                  <th>Title</th>
+                  <th class="text-end">
+                    <select
+                      class="form-select form-select-sm w-auto d-inline-block"
+                      [(ngModel)]="currentPlaylist"
+                      name="playlist"
+                      (change)="setCurrentPlaylist(currentPlaylist)"
+                    >
+                      <option *ngIf="currentPlaylistName === 'Playlist'" disabled selected>
+                        {{ currentPlaylistName }} ▼
+                      </option>
+                      <ng-container *ngIf="playlists">
+                        <option *ngFor="let playlist of playlists" [ngValue]="playlist">
+                          {{ playlist.name }}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-container *ngIf="tracks">
+                  <tr *ngFor="let track of tracks">
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-success btn-sm"
+                        *ngIf="track?.id !== undefined"
+                        (click)="playTrack(track.id.toString())"
+                      >
+                        <i class="fas fa-play"></i>
+                      </button>
+                    </td>
+                    <td *ngIf="track?.artist !== undefined">{{ track.artist }}</td>
+                    <td *ngIf="track?.title !== undefined">{{ track.title }}</td>
+                    <td class="text-end">
+                      <ng-container *ngIf="!isCurrentPlaylistNull() && track?.id !== undefined">
+                        <button
+                          *ngIf="checkIfTrackIsInCurrentPlaylist(track)"
+                          class="btn btn-outline-success btn-sm me-2"
+                          (click)="addTrackToPlaylist(track.id)"
+                        >
+                          Add track
+                        </button>
+                        <button
+                          *ngIf="!checkIfTrackIsInCurrentPlaylist(track)"
+                          class="btn btn-outline-danger btn-sm"
+                          (click)="removeTrackFromPlaylist(track.id)"
+                        >
+                          Remove track
+                        </button>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+
+            <!-- No results message -->
+            <div *ngIf="tracks?.length === 0" class="mt-3">
+              <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">No results!</h4>
+                <p>No tracks were found.</p>
+              </div>
             </div>
-        </div>
-    </div>
 
+            <!-- View all tracks button -->
+            <div class="pt-3 border-top text-end" *ngIf="!viewAll">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                id="view-all-button"
+                (click)="getTracks()"
+              >
+                View all tracks
+              </button>
+            </div>
+          </div>
+          <!-- End table-responsive -->
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Playlist } from './playlist'
-import { Track } from '../track/track';
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -9,12 +9,11 @@ import { User } from '../user/user';
 })
 export class AuthService {
   user: User | undefined;
-  test: String = "hello";
   private apiServerUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  public loginUser(data: any) {
+  public loginUser(data: any): Observable<any> {
     return this.http.post(`${this.apiServerUrl}/login`, data);
   }
 
@@ -22,7 +21,7 @@ export class AuthService {
     return this.http.post<User>(`${this.apiServerUrl}/registration`, user);
   }
 
-  public setUser(user: User) {
+  public setUser(user: User): void {
     this.user = user;
   }
 
@@ -30,20 +29,16 @@ export class AuthService {
     return this.user;
   }
 
-  public getToken(): string | undefined{
-    if(this.user) {
-      return this.user.token;
-    }
-    return undefined;
+  public getToken(): string | undefined {
+    return this.user?.token;
   }
 
   public isUserLoged(): boolean {
-    return this.user != undefined;
+    return !!this.user;
   }
 
   public logOut(): void {
     this.user = undefined;
-    window.location.reload;
+    window.location.reload(); // ✅ call the function correctly
   }
-  
 }

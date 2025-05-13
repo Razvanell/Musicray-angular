@@ -13,31 +13,43 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         const token: string = this.authService.getToken() || '';
 
         if (token) {
-            request = request.clone({ headers: request.headers.set("Authorization", "Bearer" + token) })
+            // Adding the Authorization header if a token is available
+            request = request.clone({ 
+                setHeaders: { 
+                    Authorization: `Bearer ${token}` 
+                }
+            });
         }
 
+        // Setting default headers if not already present
         if (!request.headers.has('Content-Type')) {
-            request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+            request = request.clone({ 
+                setHeaders: { 'Content-Type': 'application/json' } 
+            });
         }
-        request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        
+        request = request.clone({ 
+            setHeaders: { 'Accept': 'application/json' } 
+        });
+
+        // Handle the request and log response, if successful
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    console.log('event--->>>', event);
+                    console.log('Response Event: ', event);
                 }
                 return event;
             }),
             
+            // Handling errors and logging the reason and status
             catchError((error: HttpErrorResponse) => {
-                let data = {};
-                data = {
-                    reason: error && error.error && error.error.reason ? error.error.reason : "",
+                const errorData = {
+                    reason: error?.error?.reason || '',
                     status: error.status
                 };
-                return throwError(error);
-            }));
-
-            
-
+                console.error('Error Occurred:', errorData); // Optional: Add logging for the error
+                return throwError(error); // Re-throw the error
+            })
+        );
     }
 }

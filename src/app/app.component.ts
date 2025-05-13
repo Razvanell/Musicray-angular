@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MediaplayerComponent } from './mediaplayer/mediaplayer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, MediaplayerComponent],
+  imports: [NavbarComponent, RouterOutlet, MediaplayerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'streaming-app-angular';
+  title = 'musicray';
 }
