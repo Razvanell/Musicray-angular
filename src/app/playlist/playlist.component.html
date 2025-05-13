@@ -23,30 +23,23 @@
                         </div>
                     </div>
 
-                    <!-- Tracks Dropdown -->
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Tracks
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                            <li *ngFor="let track of playlist.tracks">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>{{track?.artist}} - {{track?.title}}</span>
-                                    <div>
-                                        <button class="btn btn-sm btn-danger" (click)="onRemoveTrack(playlist, track.id)">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-success" (click)="playTrack(track.id)">
-                                            <i class="fa fa-play"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- Notification if playlist is empty -->
-                            <li *ngIf="playlist.tracks.length === 0" class="text-center text-muted">
-                                Playlist is empty
-                            </li>
-                        </ul>
+                    <!-- Tracks List (Replaces Dropdown) -->
+                    <div class="list-group">
+                        <div *ngFor="let track of playlist.tracks" class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{track?.artist}} - {{track?.title}}</span>
+                            <div>
+                                <button class="btn btn-sm btn-danger" (click)="onRemoveTrack(playlist, track.id)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success" (click)="playTrack(track.id)">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Notification if playlist is empty -->
+                        <div *ngIf="playlist.tracks.length === 0" class="list-group-item text-center text-muted">
+                            Playlist is empty
+                        </div>
                     </div>
                 </div>
             </div>

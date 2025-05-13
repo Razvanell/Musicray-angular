@@ -1,6 +1,5 @@
 .navbar {
-    background-color: black;
-    /*bottom position*/
+    background-color: #000000;
     position: fixed;
     top: 0;
     width: 100%;
@@ -8,19 +7,34 @@
 }
 
 #logo {
-    color: burlywood
+    color: #1db954;
 }
 
 a {
     font-size: 1rem;
+    padding: 10px 20px;  /* Make it look more like a button */
+    color: #1db954;      /* Spotify green */
+    font-weight: 600;     /* Button-like weight */
+    border-radius: 8px;   /* Rounded corners */
+    display: inline-block; /* Ensure it's treated as a block element */
+    text-align: center;   /* Center the text inside */
+    cursor: pointer;     /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    background-color: #1db954;  /* Green background on hover */
+    color: #ffffff;             /* White text on hover */
 }
 
 #mdb-navbar li a {
-    color: rgb(245, 201, 173);
+    color: #1db954;  /* Spotify green */
 }
 
 #mdb-navbar li a:hover {
-    color: rgb(255, 255, 255);
+    background-color: #1db954; /* Green background on hover */
+    color: rgb(255, 255, 255); /* White text on hover */
     cursor: pointer;
 }
 

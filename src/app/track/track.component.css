@@ -1,7 +1,7 @@
 .container {
     padding-top: 15px;
     padding-bottom: 30px;
-    background: rgb(0,0,0);
+    background: #121212; /* Dark background matching Spotify's theme */
     border-radius: 10px;
 }
 
@@ -10,24 +10,21 @@
     margin-bottom: 5px;
 }
 
-/* SCROLLBAR TABLE*/
+/* SCROLLBAR TABLE */
 .my-custom-scrollbar {
     position: relative;
     height: 61vh;
     overflow: auto;
-}
-.table-wrapper-scroll-y {
-    display: block;
 }
 
 .select-playlist-button {
     text-align: center;
     width: 110px;
     border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     font-weight: 600;
     font-size: 0.9rem;
+    color: #1db954; /* Spotify Green */
+    background-color: #333333; /* Dark background for the button */
 }
 
 .float-right {
@@ -37,11 +34,8 @@
 .add-remove-track-button {
     width: 110px;
     max-height: 32px;
-}
-
-.add-remove-track-p {
-    text-align: center;
-    font-size: 0.8rem;
+    background-color: #1db954; /* Spotify Green */
+    color: white; /* White text */
 }
 
 .play-button {
@@ -49,42 +43,30 @@
     width: 2rem;
     height: 2rem;
     margin-right: 5px;
+    background-color: #1db954; /* Spotify Green */
+    color: white;
 }
 
 .fa-play {
-    display:block;
     font-size: 0.7rem;
-    color:rgb(0, 27, 0);
+    color: #000000; /* Play button icon color */
     text-align: center;
 }
 
 thead {
     position: sticky;
     top: 0;
+    background-color: #0e2721; /* Dark header */
 }
 
 .table th {
-    font-weight: 500;
-    color: #000000;
     font-weight: bold;
-}
-
-.table thead {
-    background-color: #e2dff5;
-}
-.table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>td {
-    vertical-align: middle;
+    color: #ffffff; /* White text for header */
 }
 
 .table tr td {
-    color: #1a192b;
+    color: #e0d6c8; /* Light beige text for readability */
     font-size: 1rem;
-    font-weight: 400;
-}
-
-.table tr:first-child td:first-child {
-    width: 2.1rem;
-    color: #1a192b;
 }
 
 .alert {

@@ -1,0 +1,29 @@
+.home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #121212; /* Spotify dark background */
+  color: #b3b3b3;            /* Light gray text for contrast */
+  margin: 0;
+}
+
+.play-button {
+  background-color: #1e1e1e; /* Dark gray button background */
+  color: #1db954;            /* Spotify green text */
+  font-size: 24px;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #1db954; /* Spotify green on hover */
+  color: #121212;            /* Dark background for text on hover */
+}
+
+.play-button:focus {
+  outline: none;
+}

@@ -5,7 +5,7 @@ import { MediaplayerComponent } from './mediaplayer/mediaplayer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, RouterOutlet, MediaplayerComponent],
+  imports: [NavbarComponent, RouterOutlet, MediaplayerComponent, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
