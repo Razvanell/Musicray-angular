@@ -1,36 +1,29 @@
-<div class="container mt-4">
-  <h2 class="text-white mb-4">Users</h2>
-
-  <!-- <div class="search input-group mb-4">
-    <input
-      type="text"
-      class="form-control bg-dark text-white"
-      placeholder="Search users..."
-      (input)="searchUsers($event.target.value)"
+<div class="content-wrapper">
+  <!-- Search bar -->
+  <form class="d-flex justify-content-center mb-3 search">
+    <input 
+      class="form-control bg-dark" 
+      placeholder="Search users..." 
+      [(ngModel)]="searchKey" 
+      name="searchKey" 
+      (ngModelChange)="searchUsers(searchKey)" 
+      required 
+      autocomplete="off"
     />
-  </div> -->
+  </form>
 
-  <div class="row">
-    <div
-      class="col-md-4"
-      *ngFor="let user of users"
-    >
+  <!-- User Cards Grid -->
+  <div class="user-grid">
+    <div class="user-card" *ngFor="let user of users">
       <div class="card p-3 shadow-sm border-0 rounded">
         <div class="d-flex align-items-center mb-2">
-          <img
-            [src]="user.imageUrl || 'https://via.placeholder.com/60'"
-            alt="User"
-            class="rounded-circle me-3 w-60"
-          />
+          <img [src]="user.imageUrl || 'https://via.placeholder.com/60'" alt="User" class="rounded-circle me-3 w-60" />
           <div>
-            <h5 class="text-white">{{ user.firstName }} {{ user.lastName }}</h5>
+            <h5 class="text-white mb-0">{{ user.firstName }} {{ user.lastName }}</h5>
             <p class="mb-1"><small class="text-muted">{{ user.email }}</small></p>
           </div>
         </div>
-        <button
-          class="btn btn-success mt-3"
-          (click)="onViewUserPlaylists(user.id)"
-        >
+        <button class="btn btn-success mt-3 text-black" (click)="onViewUserPlaylists(user.id)">
           View Playlists
         </button>
       </div>

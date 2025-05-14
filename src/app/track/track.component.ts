@@ -32,15 +32,38 @@ export class TrackComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.trackService.getFiveTracks();
+    this.getFiveTracks();
     this.getUserPlaylists();
   }
 
+  
   openComponent(): void {
-    this.router.navigate(["/"]);
+    this.router.navigate(["/", "track"])
   }
 
-  public searchTracks(key: string): void {
+  public getFiveTracks(): void {
+    this.trackService.getFiveTracks().subscribe(
+      (response: Track[]) => {
+        this.tracks = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+    public getTracks(): void {
+    this.trackService.getTracks().subscribe(
+      (response) => {
+        this.tracks = response;
+      },
+      (error) => {
+        alert(error.message);
+      }
+    );
+  }
+
+    public searchTracks(key: string): void {
     console.log(key);
     const results: Track[] = [];
     for (const track of this.tracks) {
@@ -57,17 +80,6 @@ export class TrackComponent {
         },
         500);
     }
-  }
-
-    public getTracks(): void {
-    this.trackService.getTracks().subscribe(
-      (response) => {
-        this.tracks = response;
-      },
-      (error) => {
-        alert(error.message);
-      }
-    );
   }
 
   public getUserPlaylists(): void {

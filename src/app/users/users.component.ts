@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.css'
+  styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
   public users: User[] = [];
-  public deleteUser: User = this.getEmptyUser();
-  public putUser: User = this.getEmptyUser();
+  public searchKey: string = '';  // Added searchKey for two-way binding
 
   private getEmptyUser(): User {
     return {
@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
+  // Fetch the full user list
   public getUsers(): void {
     this.userService.getUsers().subscribe(
       (response: User[]) => {
@@ -47,26 +48,24 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  // Search users based on the input key
   public searchUsers(key: string): void {
-    console.log(key);
-    const results: User[] = [];
-    for (const user of this.users) {
-      if (user.email.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-          user.firstName.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-          user.lastName.toLocaleLowerCase().includes(key.toLocaleLowerCase())) {
-        results.push(user);
-      }
+    console.log(key); // Log the search key to check if the method is triggered
+    if (!key) {
+      // If the search input is empty, fetch all users
+      this.getUsers();
+      return;
     }
+    const results: User[] = this.users.filter(user =>
+      user.email.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
+      user.firstName.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
+      user.lastName.toLocaleLowerCase().includes(key.toLocaleLowerCase())
+    );
     this.users = results;
-    if (results.length === 0 || !key) {
-      setTimeout(() => {
-        this.getUsers();
-      }, 500);
-    }
   }
 
+  // Navigate to a user's playlists page
   public onViewUserPlaylists(userId: number): void {
     this.router.navigate(['/playlist', userId]);
   }
 }
-

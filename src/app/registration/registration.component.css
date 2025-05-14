@@ -67,7 +67,7 @@
 }
 
 /* Styles the submit button */
-.login-btn {
+.registration-btn {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
@@ -80,19 +80,19 @@
 }
 
 /* Styles the button when it's disabled */
-.login-btn:disabled {
+.registration-btn:disabled {
   background-color: #8392a5;
   cursor: not-allowed;
 }
 
 /* Changes button style on hover when enabled */
-.login-btn:hover:not(:disabled) {
+.registration-btn:hover:not(:disabled) {
   background-color: #1e1e1e;
   color: #1db954;
 }
 
 /* Container for the login link below the form */
-.register-link {
+.registration-link {
   margin-top: 1rem;
   font-size: 0.875rem;
 }

@@ -1,74 +1,134 @@
-.container {
-    padding-top: 15px;
-    padding-bottom: 30px;
-    background: #121212; /* Dark background matching Spotify's theme */
-    border-radius: 10px;
+/* Ensure body and html fill the viewport height */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-.search {
-    margin-top: -12px;
-    margin-bottom: 5px;
+.content-wrapper {
+    margin-top: 70px;
 }
 
-/* SCROLLBAR TABLE */
-.my-custom-scrollbar {
-    position: relative;
-    height: 61vh;
-    overflow: auto;
+input.form-control {
+  width: 100%;
+  max-width: 400px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px;
 }
 
-.select-playlist-button {
-    text-align: center;
-    width: 110px;
-    border: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #1db954; /* Spotify Green */
-    background-color: #333333; /* Dark background for the button */
+input.form-control::placeholder {
+  color: #777;
 }
 
-.float-right {
-    margin-right: 20px;
+input.form-control:focus {
+  outline: none;
+  border-color: #1db954;
+  box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
 }
 
-.add-remove-track-button {
-    width: 110px;
-    max-height: 32px;
-    background-color: #1db954; /* Spotify Green */
-    color: white; /* White text */
+
+/* Alert box styles */
+.alert {
+    margin-top: 5px;
+    background-color: #1e1e1e;
+    color: #b3b3b3;
+    border: 1px solid #333333;
+    padding: 1rem;
+    border-radius: 8px;
 }
 
-.play-button {
-    border-radius: 100%;
-    width: 2rem;
-    height: 2rem;
-    margin-right: 5px;
-    background-color: #1db954; /* Spotify Green */
-    color: white;
-}
-
-.fa-play {
-    font-size: 0.7rem;
-    color: #000000; /* Play button icon color */
-    text-align: center;
+/* Table Styling */
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
 thead {
     position: sticky;
     top: 0;
-    background-color: #0e2721; /* Dark header */
+    background-color: #1e1e1e;
 }
 
 .table th {
     font-weight: bold;
-    color: #ffffff; /* White text for header */
+    color: #ffffff;
+    padding: 0.75rem;
 }
 
-.table tr td {
-    color: #e0d6c8; /* Light beige text for readability */
+.table td {
+    color: #b3b3b3;
     font-size: 1rem;
+    padding: 0.75rem;
+    border-top: 1px solid #333333;
+}
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.alert {
-    margin-top: 5px;
+.dropdown-toggle {
+    width: 100%;
+    min-width: 120px;  /* Minimum width */
+    max-width: 120px;  /* Maximum width */
+    background-color: #333333;
+    color: #b3b3b3;
+    border: 1px solid #333333;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    overflow: hidden; /* Ensure the text doesn't overflow */
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+}
+
+.dropdown-toggle:hover {
+    background-color: #1db954;
+    border-color: #1db954;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    min-width: 100%;
+    padding: 0;
+}
+
+.dropdown-item {
+    color: #b3b3b3;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #1e1e1e;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #1db954;
+    color: white;
+}
+
+.dropdown-item:active {
+    background-color: #1db954;
+    color: white;
+}
+
+/* Ensure dropdown stays within container bounds */
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
 }
