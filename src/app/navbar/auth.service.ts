@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router'; 
 import { User } from '../user/user';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AuthService {
   user: User | undefined;
   private apiServerUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public loginUser(data: any): Observable<any> {
     return this.http.post(`${this.apiServerUrl}/login`, data);
@@ -37,8 +38,8 @@ export class AuthService {
     return !!this.user;
   }
 
-  public logOut(): void {
+   public logOut(): void {
     this.user = undefined;
-    window.location.reload(); // ✅ call the function correctly
+    this.router.navigate(['/login']);
   }
 }

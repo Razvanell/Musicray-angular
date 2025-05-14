@@ -1,0 +1,116 @@
+/* Positions the form in the center of the screen */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #121212;
+}
+
+/* Container for the form content */
+.login-card {
+  background-color: #1e1e1e;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Styles the heading at the top of the form */
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #b3b3b3;
+}
+
+/* Groups label and input together */
+.input-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* Styles the label above each input */
+.input-label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #b3b3b3;
+}
+
+/* Styles for input fields */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  background-color: #1e1e1e;
+  color: #b3b3b3;
+}
+
+/* Changes input border on focus */
+.input-field:focus {
+  border-color: #1db954;
+  outline: none;
+}
+
+/* Styles for error messages below inputs */
+.error-message {
+  color: #d9534f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Styles the submit button */
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Styles the button when it's disabled */
+.login-btn:disabled {
+  background-color: #8392a5;
+  cursor: not-allowed;
+}
+
+/* Changes button style on hover when enabled */
+.login-btn:hover:not(:disabled) {
+  background-color: #1e1e1e;
+  color: #1db954;
+}
+
+/* Container for the login link below the form */
+.register-link {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Styles the login link */
+.registration-link a {
+  color: #1db954;
+  text-decoration: none;
+}
+
+/* Adds underline on hover to link */
+.registration-link a:hover {
+  text-decoration: underline;
+}
+
+/* Overrides browser autofill styles */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1e1e1e inset;
+  -webkit-text-fill-color: #b3b3b3;
+  transition: background-color 5000s ease-in-out 0s;
+}

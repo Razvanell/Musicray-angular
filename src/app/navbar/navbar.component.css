@@ -1,43 +1,37 @@
+/* Navbar styling */
 .navbar {
-    background-color: #000000;
+    background-color: #1e1e1e;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 99;
 }
 
-#logo {
-    color: #1db954;
+/* Ensure links are aligned properly */
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end;  /* Align login/logout to the right */
 }
 
+/* Link styling */
 a {
-    font-size: 1rem;
-    padding: 10px 20px;  /* Make it look more like a button */
-    color: #1db954;      /* Spotify green */
-    font-weight: 600;     /* Button-like weight */
-    border-radius: 8px;   /* Rounded corners */
-    display: inline-block; /* Ensure it's treated as a block element */
-    text-align: center;   /* Center the text inside */
-    cursor: pointer;     /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-    text-decoration: none; /* Remove underline */
+    font-size: 1.2rem;
+    padding: 5px 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #1db954; /* Spotify green */
+    font-weight: 600;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
 }
 
+/* Hover effect for links */
 a:hover {
     background-color: #1db954;  /* Green background on hover */
     color: #ffffff;             /* White text on hover */
 }
 
-#mdb-navbar li a {
-    color: #1db954;  /* Spotify green */
-}
-
-#mdb-navbar li a:hover {
-    background-color: #1db954; /* Green background on hover */
-    color: rgb(255, 255, 255); /* White text on hover */
-    cursor: pointer;
-}
-
-h5 {
-    font-size: 1.2rem;
-}

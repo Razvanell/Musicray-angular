@@ -4,6 +4,9 @@ import { TrackComponent } from './track/track.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { HomeComponent } from './home/home.component';  // Import your new HomeComponent
 import { AuthGuard } from './navbar/auth.guard';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { UsersComponent } from './users/users.component';
 
 // Define your routes
 export const appRoutes: Routes = [
@@ -13,9 +16,13 @@ export const appRoutes: Routes = [
     pathMatch: 'full',         // Ensure this is a full path match
   },
   {
-    path: 'users',
+    path: 'user',
     component: UserComponent,
     canActivate: [AuthGuard],  // Protected route with AuthGuard
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
   },
   {
     path: 'track',
@@ -24,6 +31,14 @@ export const appRoutes: Routes = [
   {
     path: 'playlist/:userId',
     component: PlaylistComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent
   },
   {
     path: '**',

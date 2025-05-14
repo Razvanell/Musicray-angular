@@ -34,8 +34,6 @@ export class UserComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService) {}
 
-  
-
   ngOnInit(): void {
     this.getUsers();
   }

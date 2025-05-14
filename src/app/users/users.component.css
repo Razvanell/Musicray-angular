@@ -1,0 +1,84 @@
+body {
+  margin-top: 20px;
+  background-color: #121212;
+  color: #b3b3b3;
+  overflow-x: hidden;
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
+input.form-control {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+input.form-control::placeholder {
+  color: #777;
+}
+
+input.form-control:focus {
+  outline: none;
+  border-color: #1db954;
+  box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
+}
+
+.btn {
+  background-color: #1db954;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #1ed760;
+}
+
+.card {
+  margin-bottom: 30px;
+  background-color: #1e1e1e;
+  color: #cacaca;
+  border: 1px solid transparent;
+  transition: border 0.3s;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.card:hover {
+  border: 1px solid #1db954;
+}
+
+.w-60 {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+}
+
+.list-group-item {
+  background-color: transparent;
+  color: #cacaca;
+  border-color: #333;
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
