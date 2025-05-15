@@ -1,7 +1,7 @@
 body {
   background-color: #121212;
   color: #e0d6c8;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .content-wrapper {

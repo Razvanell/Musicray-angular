@@ -1,5 +1,5 @@
 .media-player {
-    background-color: #1e1e1e; /* Dark background matching Spotify theme */
+    background-color: #1e1e1e;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -9,11 +9,10 @@
     padding: 9px;
 }
 
-audio, audio::-webkit-media-controls-panel {
+audio,
+audio::-webkit-media-controls-panel {
     border: none;
     border-radius: 25px;
     background: rgb(55, 73, 92);
     background: linear-gradient(243deg, #2d6a4f 3%, #1b9847 51%, #16b34a 80%, #2d6a4f 99%);
-
-
 }

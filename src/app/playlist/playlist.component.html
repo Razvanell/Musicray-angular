@@ -1,124 +1,136 @@
-<div class="container my-3" id="main-container">
+<div class="container py-4" id="main-container">
 
-    <!-- Create Playlist Button -->
-    <button (click)="onOpenPlaylistModal(null, 'post')" class="btn btn-success mb-4" id="create-playlist-button">
-        <i class="fa fa-plus"></i> Create Playlist
-    </button>
+    <!-- Create Playlist -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Your Playlists</h2>
+        <button class="btn btn-success btn-create" (click)="onOpenPlaylistModal(null, 'post')">
+            <i class="fa fa-plus"></i> Create Playlist
+        </button>
+    </div>
 
-    <!-- Playlist List -->
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div *ngFor="let playlist of playlists" class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <!-- Playlist Name and Action Buttons -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="card-title">{{playlist?.name}}</h5>
-                        <div>
-                            <button (click)="onOpenPlaylistModal(playlist, 'delete')" class="btn btn-danger btn-sm">
-                                <i class="fa fa-times"></i>
-                            </button>
-                            <button (click)="onOpenPlaylistModal(playlist, 'put')" class="btn btn-primary btn-sm">
+    <!-- Playlist Grid -->
+    <div class="row g-4">
+        <div *ngFor="let playlist of playlists" class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column justify-content-between">
+
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title mb-0">{{ playlist?.name }}</h5>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary"
+                                (click)="onOpenPlaylistModal(playlist, 'put')">
                                 <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger"
+                                (click)="onOpenPlaylistModal(playlist, 'delete')">
+                                <i class="fa fa-trash"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Tracks List (Replaces Dropdown) -->
-                    <div class="list-group">
-                        <div *ngFor="let track of playlist.tracks" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{track?.artist}} - {{track?.title}}</span>
-                            <div>
-                                <button class="btn btn-sm btn-danger" (click)="onRemoveTrack(playlist, track.id)">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                                <button class="btn btn-sm btn-success" (click)="playTrack(track.id)">
+                    <!-- Tracks -->
+                    <div *ngIf="playlist.tracks.length" class="list-group list-group-flush">
+                        <div *ngFor="let track of playlist.tracks"
+                            class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0">
+                            <span>{{ track?.artist }} - {{ track?.title }}</span>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-success" (click)="playTrack(track.id)">
                                     <i class="fa fa-play"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    (click)="onRemoveTrack(playlist, track.id)">
+                                    <i class="fa fa-times"></i>
                                 </button>
                             </div>
                         </div>
-                        <!-- Notification if playlist is empty -->
-                        <div *ngIf="playlist.tracks.length === 0" class="list-group-item text-center text-muted">
-                            Playlist is empty
-                        </div>
                     </div>
+
+                    <!-- Empty -->
+                    <div *ngIf="!playlist.tracks.length" class="text-muted text-center small mt-3">
+                        No tracks in this playlist
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- No Playlists Notification -->
-    <div *ngIf="playlists.length === 0" class="alert alert-info mt-4">
-        <h4 class="alert-heading">No Playlists!</h4>
-        <p>User has created no playlists.</p>
+    <!-- No Playlists -->
+    <div *ngIf="!playlists.length" class="alert alert-dark text-center mt-4">
+        <h4>No playlists found</h4>
+        <p>You haven’t created any playlists yet.</p>
     </div>
-
 </div>
 
-<!-- Post Playlist Modal -->
-<div class="modal fade" id="postPlaylistModal" tabindex="-1" aria-labelledby="postPlaylistModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!-- Post Modal -->
+<div class="modal fade" id="postPlaylistModal" tabindex="-1" aria-labelledby="postPlaylistModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form [formGroup]="postForm" class="modal-content bg-dark text-light">
             <div class="modal-header">
-                <h5 class="modal-title" id="postPlaylistModalLabel">Create New Playlist</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Create Playlist</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="postForm">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter playlist name" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button [disabled]="postForm.invalid" (click)="onPostPlaylist()" type="submit" class="btn btn-primary">Create</button>
-                    </div>
-                </form>
+                <label for="playlist-name" class="form-label">Name</label>
+                <input id="playlist-name" type="text" formControlName="name" class="form-control"
+                    placeholder="Enter name" />
             </div>
-        </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-secondary btn-modal"
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-success btn-modal" [disabled]="postForm.invalid"
+                    (click)="onPostPlaylist()">Create</button>
+            </div>
+        </form>
     </div>
 </div>
 
-<!-- Delete Playlist Modal -->
-<div class="modal fade" id="deletePlaylistModal" tabindex="-1" aria-labelledby="deletePlaylistModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePlaylistModalLabel">Delete Playlist</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete playlist {{deletePlaylist?.name}}?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button *ngIf="deletePlaylist && deletePlaylist.id !== undefined" (click)="onDeletePlaylist(deletePlaylist.id)" class="btn btn-danger" data-bs-dismiss="modal">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Playlist Modal -->
+<!-- Put Modal -->
 <div class="modal fade" id="putPlaylistModal" tabindex="-1" aria-labelledby="putPlaylistModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
+        <form [formGroup]="postForm" class="modal-content bg-dark text-light">
             <div class="modal-header">
-                <h5 class="modal-title" id="putPlaylistModalLabel">Edit Playlist: {{putPlaylist?.name}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Edit Playlist</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="postForm">
-                    <input type="hidden" formControlName="id" class="form-control" id="id">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter playlist name">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button (click)="onPutPlaylist(postForm.value)" data-bs-dismiss="modal" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
+                <input type="hidden" formControlName="id" />
+                <label for="playlist-edit-name" class="form-label">Name</label>
+                <input id="playlist-edit-name" type="text" formControlName="name" class="form-control" />
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-secondary btn-modal"
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-modal" (click)="onPutPlaylist(postForm.value)"
+                    data-bs-dismiss="modal">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deletePlaylistModal" tabindex="-1" aria-labelledby="deletePlaylistModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Playlist</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Are you sure you want to delete <strong>{{ deletePlaylist?.name }}</strong>?
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-secondary btn-modal"
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn-modal" (click)="onDeletePlaylist(deletePlaylist.id)"
+                    data-bs-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
 </div>
-

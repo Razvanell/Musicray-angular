@@ -29,13 +29,12 @@ export class PlaylistService {
     return this.http.put<Playlist>(`${this.apiServerUrl}/playlist/put`, playlist);
   }
 
-  
   public addTrackToPlaylist(playlist: Playlist, trackId: number): Observable<Playlist> {
     return this.http.put<Playlist>(`${this.apiServerUrl}/playlist/add-track-to-playlist/${trackId}`, playlist);
   }
 
   public removeTrackFromPlaylist(playlist: Playlist, trackId: number): Observable<Playlist> {
-    return this.http.put<Playlist>(`${this.apiServerUrl}/playlist/remove-track/${trackId}`, playlist);
+    return this.http.put<Playlist>(`${this.apiServerUrl}/playlist/remove-track-from-playlist/${trackId}`, playlist);
   }
 
 }

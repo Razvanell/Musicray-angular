@@ -1,47 +1,41 @@
-/* Ensure body and html fill the viewport height */
 html,
 body {
-    height: 100%;
+    height: 80%;
     margin: 0;
+    background-color: #121212;
+    color: #b3b3b3;
     font-family: Arial, sans-serif;
 }
 
 .content-wrapper {
     margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
+/* Search input */
 input.form-control {
-  width: 100%;
-  max-width: 400px;
-  background-color: #1e1e1e;
-  color: #ffffff;
-  border: 1px solid #333;
-  border-radius: 4px;
-  padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 10px;
 }
 
 input.form-control::placeholder {
-  color: #777;
+    color: #777;
 }
 
 input.form-control:focus {
-  outline: none;
-  border-color: #1db954;
-  box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
+    outline: none;
+    border-color: #1db954;
+    box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
 }
 
-
-/* Alert box styles */
-.alert {
-    margin-top: 5px;
-    background-color: #1e1e1e;
-    color: #b3b3b3;
-    border: 1px solid #333333;
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-/* Table Styling */
+/* Table styles */
 table {
     width: 100%;
     table-layout: fixed;
@@ -54,81 +48,173 @@ thead {
     background-color: #1e1e1e;
 }
 
+.table th,
+.table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #444444;
+    /* Subtle bottom border */
+}
+
 .table th {
     font-weight: bold;
     color: #ffffff;
-    padding: 0.75rem;
 }
 
 .table td {
-    color: #b3b3b3;
+    color: #e0d6c8;
     font-size: 1rem;
-    padding: 0.75rem;
-    border-top: 1px solid #333333;
-}
-/* Dropdown styles */
-.dropdown {
-    position: relative;
-    display: inline-block;
 }
 
-.dropdown-toggle {
-    width: 100%;
-    min-width: 120px;  /* Minimum width */
-    max-width: 120px;  /* Maximum width */
+/* Optional: Add a slight shadow to the rows for better separation */
+.table tr:hover {
     background-color: #333333;
-    color: #b3b3b3;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Buttons */
+.btn {
+    background-color: #1aab4f;
+    /* darker green */
+    color: #000000;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1ed760;
+    /* brighter green on hover */
+    color: #000000;
+}
+
+/* Green 'Add' button */
+.btn-outline-success,
+.btn-outline-success:hover {
+    min-width: 150px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #1aab4f;
+    color: #000000;
+}
+
+.btn-outline-success:hover {
+    background-color: #1ed760;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+}
+
+/* Red 'Remove' button */
+.btn-outline-danger,
+.btn-outline-danger:hover {
+    min-width: 150px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #b03024;
+    color: #000000;
+}
+
+.btn-outline-danger:hover {
+    background-color: #c93828;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(255, 80, 80, 0.5);
+}
+
+/* Play button */
+.play-button {
+    background-color: #1db954;
+    color: #000000;
+    margin-left: 50px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-button:hover {
+    background-color: #1ed760;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    transition: all 0.3s ease;
+}
+
+.play-button i.fa-play {
+    color: #000000;
+    font-size: 0.75rem;
+}
+
+/* Wrap highlight logic to the row */
+.track-row:hover .td-text-hover {
+    color: #1db954;
+    /* Spotify Green */
+    text-shadow: 0 0 5px rgba(30, 215, 96, 0.7);
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Dropdown Toggle Button */
+.dropdown-toggle {
+    width: 150px;
+    background-color: #333333;
+    color: #ffffff;
     border: 1px solid #333333;
     font-weight: 600;
     font-size: 1rem;
-    padding: 0.75rem 1.25rem;
     border-radius: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    overflow: hidden; /* Ensure the text doesn't overflow */
-    white-space: nowrap; /* Prevent text from wrapping */
-    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .dropdown-toggle:hover {
     background-color: #1db954;
     border-color: #1db954;
+    color: #000000;
 }
 
+/* Dropdown Menu */
 .dropdown-menu {
+    width: 148px;
+    /* Match toggle button */
     position: absolute;
     top: 100%;
     left: 0;
     z-index: 1000;
     background-color: #1e1e1e;
-    border-radius: 8px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    min-width: 100%;
-    padding: 0;
 }
 
+/* Dropdown Item */
 .dropdown-item {
-    color: #b3b3b3;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    text-align: center;
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 0;
     background-color: #1e1e1e;
-    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.dropdown-item:hover {
-    background-color: #1db954;
-    color: white;
-}
-
+/* Hover and Active Styles */
+.dropdown-item:hover,
 .dropdown-item:active {
     background-color: #1db954;
-    color: white;
-}
-
-/* Ensure dropdown stays within container bounds */
-.dropdown-menu {
-    max-height: 300px;
-    overflow-y: auto;
+    color: #000000;
 }

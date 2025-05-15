@@ -1,37 +1,154 @@
-.container {
-  position: relative;
-  overflow: auto;
+body {
+  background-color: #121212;
+  color: #e0d6c8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding-bottom: 80px;
+  /* For bottom player bar */
+  overflow-x: hidden;
 }
 
-#create-playlist-button {
-  margin-bottom: 10px;
+h2 {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 600;
 }
 
 .card {
-  background-color: #2b2b2b; /* Dark green background to match Spotify theme */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .1); /* Slightly stronger shadow for better depth */
-  margin-bottom: 30px;
-  color: #e0d6c8; /* Light beige text for better contrast */
-  font-weight: 600;
-  font-size: 1.5rem;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  transition: border-color 0.3s ease;
+  color: #cacaca;
 }
 
+.card:hover {
+  border-color: #1db954;
+}
+
+.card-title {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.list-group-item {
+  background-color: transparent;
+  color: #e0d6c8;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Uniform button size and layout */
 .btn {
-  color: #000000; /* Spotify green color for buttons */
+  width: 36px;
+  /* fixed width for icon buttons */
+  height: 32px;
+  /* fixed height */
+  padding: 0;
+  display: flex;
+  /* flex for icon centering */
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-.btn-sm {
-  margin-right: 5px;
+/* Larger buttons with different width */
+.btn-create {
+  width: 150px;
+  font-size: 17px;
 }
 
-#dropdownMenuButton {
-  margin: 10px 0;
+.btn-modal {
+  width: 80px;
 }
 
-.track {
-  margin: 10px;
+/* Success buttons: green background, black text */
+.btn-success {
+  background-color: #1db954;
+  border: none;
+  color: #000;
 }
 
-.w-60 {
-  width: 20px;
+.btn-success:hover {
+  background-color: #1ed760;
+  color: #000;
+  /* keep text black on hover */
+}
+
+/* Primary outline: green border and text, filled green on hover */
+.btn-outline-primary {
+  border-color: #1db954;
+  color: #1db954;
+}
+
+.btn-outline-primary:hover {
+  background-color: #1db954;
+  color: #000;
+  /* text switches to black on hover */
+}
+
+/* Danger outline: red border and text, filled red on hover */
+.btn-outline-danger {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+  /* white text on red hover */
+}
+
+/* Secondary outline: grey border and text, filled grey on hover */
+.btn-outline-secondary {
+  border-color: #666;
+  color: #ccc;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #666;
+  color: #fff;
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+  color: #e0d6c8;
+  border-radius: 12px;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #333;
+}
+
+input.form-control {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 6px;
+}
+
+input.form-control::placeholder {
+  color: #777;
+}
+
+input.form-control:focus {
+  outline: none;
+  border-color: #1db954;
+  box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
+
+.alert-dark {
+  background-color: #1e1e1e;
+  color: #999;
+  border: 1px solid #333;
 }

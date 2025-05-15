@@ -36,7 +36,7 @@ export class TrackComponent {
     this.getUserPlaylists();
   }
 
-  
+
   openComponent(): void {
     this.router.navigate(["/", "track"])
   }
@@ -52,7 +52,7 @@ export class TrackComponent {
     );
   }
 
-    public getTracks(): void {
+  public getTracks(): void {
     this.trackService.getTracks().subscribe(
       (response) => {
         this.tracks = response;
@@ -63,7 +63,7 @@ export class TrackComponent {
     );
   }
 
-    public searchTracks(key: string): void {
+  public searchTracks(key: string): void {
     console.log(key);
     const results: Track[] = [];
     for (const track of this.tracks) {
@@ -122,10 +122,14 @@ export class TrackComponent {
       alert('Please select a playlist first.');
       return;
     }
+
+    const currentPlaylistId = this.currentPlaylist.id;
+    const userId = this.currentPlaylist.user.id;
+    console.log('Adding track', trackId, 'to playlist', this.currentPlaylist);
+
     this.playlistService.addTrackToPlaylist(this.currentPlaylist, trackId).subscribe(
       (response: Playlist) => {
-        this.getUserPlaylists(); // Refresh playlist data
-        this.openComponent(); // Close the component/modal
+        this.getUserPlaylistsAndRetainCurrent(userId, currentPlaylistId);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -138,9 +142,30 @@ export class TrackComponent {
       alert('Please select a playlist first.');
       return;
     }
+
+    const currentPlaylistId = this.currentPlaylist.id;
+    const userId = this.currentPlaylist.user.id;
+
     this.playlistService.removeTrackFromPlaylist(this.currentPlaylist, trackId).subscribe(
       (response: Playlist) => {
-        this.getUserPlaylists(); // Refresh playlist data
+        this.getUserPlaylistsAndRetainCurrent(userId, currentPlaylistId);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  private getUserPlaylistsAndRetainCurrent(userId: number, currentPlaylistId: number): void {
+    this.playlistService.getUserPlaylists(userId).subscribe(
+      (response: Playlist[]) => {
+
+        this.playlists = response;
+        const updated = this.playlists.find(p => p.id === currentPlaylistId);
+        if (updated) {
+          this.currentPlaylist = updated;
+          this.currentPlaylistName = updated.name;
+        }
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
