@@ -9,21 +9,31 @@
 }
 
 .play-button {
-  background-color: #1e1e1e; /* Dark gray button background */
-  color: #1db954;            /* Spotify green text */
-  font-size: 24px;
-  padding: 20px 40px;
+  background-color: #1e1e1e;
+  color: #1db954;
+  font-size: 28px;
+  padding: 24px 50px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .play-button:hover {
-  background-color: #1db954; /* Spotify green on hover */
-  color: #121212;            /* Dark background for text on hover */
+  background-color: #1db954;
+  color: #121212;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 15px rgba(30, 215, 96, 0.5);
+}
+
+.play-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 8px rgba(30, 215, 96, 0.3);
 }
 
 .play-button:focus {
   outline: none;
 }
+
+
