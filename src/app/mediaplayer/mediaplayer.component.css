@@ -1,5 +1,6 @@
 .media-player {
-  background-color: #1e1e1e;
+  background-color: transparent;
+  
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -7,7 +8,7 @@
   display: flex;
   justify-content: center;
   padding: 8px;
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -8px 12px rgba(0, 0, 0, 0.7);
   border: none;
 }
 
@@ -32,7 +33,3 @@ audio:hover {
     0 0 15px #40369a,
     0 0 20px #16b34a;
 }
-
-
-
-

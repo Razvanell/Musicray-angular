@@ -1,11 +1,13 @@
 /* Navbar styling */
 .navbar {
-    background-color: #1e1e1e;
     position: fixed;
     top: 0;
     width: 100%;
     display: flex;
     z-index: 99;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.7);
+    padding: 8px;
+    border: none;
 }
 
 /* Ensure links are aligned properly */
@@ -32,8 +34,10 @@ a {
 
 /* Hover effect for links */
 a:hover {
-    background-color: #1ed760; /* brighter green */
-    color: #000000;            /* black text */
+    background-color: #1ed760;
+    /* brighter green */
+    color: #000000;
+    /* black text */
     transform: scale(1.02);
     box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
     transition: all 0.3s ease;

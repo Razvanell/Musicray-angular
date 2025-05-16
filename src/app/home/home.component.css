@@ -11,8 +11,9 @@
 .play-button {
   margin-bottom: 20px;
   background-color: #1e1e1e;
-  color: #1db954;
+  color: #121212;
   font-size: 31px;
+  font-weight: 500;
   padding: 24px 50px;
   border: none;
   border-radius: 10px;
@@ -23,7 +24,6 @@
 
 .play-button:hover {
   background-color: #1db954;
-  color: #121212;
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 0 15px rgba(30, 215, 96, 0.5);
 }
@@ -37,4 +37,23 @@
   outline: none;
 }
 
+.flow {
+  cursor: pointer;
+  background: linear-gradient(-45deg, #000000, #661ea6, #23a6d5, #297844, #000000);
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+  transition: transform 0.2s;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
