@@ -4,8 +4,13 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding-bottom: 80px;
-  /* For bottom player bar */
   overflow-x: hidden;
+}
+
+.content-wrapper {
+  padding: 80px 16px 40px;
+  position: relative;
+  z-index: 1;
 }
 
 h2 {
@@ -14,12 +19,17 @@ h2 {
   font-weight: 600;
 }
 
+.playlist-card {
+  width: 100%;
+}
+
 .card {
   background-color: #1e1e1e;
   border: 1px solid #333;
   border-radius: 12px;
   transition: border-color 0.3s ease;
   color: #e0d6c8;
+  width: 100%;
 }
 
 .card:hover {
@@ -32,6 +42,10 @@ h2 {
   font-weight: 500;
 }
 
+.card.no-tracks {
+  min-height: 120px;
+}
+
 .list-group-item {
   background-color: transparent;
   color: #e0d6c8;
@@ -40,15 +54,12 @@ h2 {
   padding-right: 0;
 }
 
-/* Uniform button size and layout */
+/* Buttons */
 .btn {
   width: 36px;
-  /* fixed width for icon buttons */
   height: 32px;
-  /* fixed height */
   padding: 0;
   display: flex;
-  /* flex for icon centering */
   align-items: center;
   justify-content: center;
   font-size: 14px;
@@ -57,7 +68,6 @@ h2 {
   transition: all 0.2s ease;
 }
 
-/* Larger buttons with different width */
 .btn-create {
   width: 150px;
   font-size: 17px;
@@ -67,7 +77,6 @@ h2 {
   width: 80px;
 }
 
-/* Success buttons: green background, black text */
 .btn-success {
   background-color: #1db954;
   border: none;
@@ -77,10 +86,8 @@ h2 {
 .btn-success:hover {
   background-color: #1ed760;
   color: #000;
-  /* keep text black on hover */
 }
 
-/* Primary outline: green border and text, filled green on hover */
 .btn-outline-primary {
   border-color: #1db954;
   color: #1db954;
@@ -89,10 +96,8 @@ h2 {
 .btn-outline-primary:hover {
   background-color: #1db954;
   color: #000;
-  /* text switches to black on hover */
 }
 
-/* Danger outline: red border and text, filled red on hover */
 .btn-outline-danger {
   border-color: #ff4d4d;
   color: #ff4d4d;
@@ -101,10 +106,8 @@ h2 {
 .btn-outline-danger:hover {
   background-color: #ff4d4d;
   color: #fff;
-  /* white text on red hover */
 }
 
-/* Secondary outline: grey border and text, filled grey on hover */
 .btn-outline-secondary {
   border-color: #666;
   color: #ccc;
@@ -115,6 +118,7 @@ h2 {
   color: #fff;
 }
 
+/* Modal */
 .modal-content {
   background-color: #1e1e1e;
   color: #e0d6c8;
@@ -126,6 +130,7 @@ h2 {
   border-color: #333;
 }
 
+/* Input */
 input.form-control {
   background-color: #2a2a2a;
   border: 1px solid #444;
