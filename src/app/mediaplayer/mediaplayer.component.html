@@ -1,6 +1,6 @@
 <!-- Media Player -->
 <div class="media-player">
-  <audio controls [src]="audioFileSource" autoplay>
+  <audio #audioPlayer controls [src]="audioFileSource" autoplay (ended)="onTrackEnded()">
     <source type="audio/mpeg">
   </audio>
 </div>

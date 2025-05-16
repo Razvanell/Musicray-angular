@@ -82,7 +82,9 @@
                 <button type="button" class="btn btn-outline-secondary btn-modal"
                     data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-success btn-modal" [disabled]="postForm.invalid"
-                    (click)="onPostPlaylist()">Create</button>
+                    data-bs-dismiss="modal" (click)="onPostPlaylist(); $event.preventDefault()">
+                    Create
+                </button>
             </div>
         </form>
     </div>
@@ -91,7 +93,7 @@
 <!-- Put Modal -->
 <div class="modal fade" id="putPlaylistModal" tabindex="-1" aria-labelledby="putPlaylistModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form [formGroup]="postForm" class="modal-content bg-dark text-light">
+        <form [formGroup]="putForm" class="modal-content bg-dark text-light">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Playlist</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -105,8 +107,10 @@
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-outline-secondary btn-modal"
                     data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-modal" (click)="onPutPlaylist(postForm.value)"
-                    data-bs-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-primary btn-modal" (click)="onPutPlaylist(putForm.value)"
+                    data-bs-dismiss="modal">
+                    Save
+                </button>
             </div>
         </form>
     </div>
@@ -129,7 +133,9 @@
                 <button type="button" class="btn btn-outline-secondary btn-modal"
                     data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger btn-modal" (click)="onDeletePlaylist(deletePlaylist.id)"
-                    data-bs-dismiss="modal">Delete</button>
+                    data-bs-dismiss="modal">
+                    Delete
+                </button>
             </div>
         </div>
     </div>

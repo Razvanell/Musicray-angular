@@ -9,9 +9,10 @@
 }
 
 .play-button {
+  margin-bottom: 20px;
   background-color: #1e1e1e;
   color: #1db954;
-  font-size: 28px;
+  font-size: 31px;
   padding: 24px 50px;
   border: none;
   border-radius: 10px;

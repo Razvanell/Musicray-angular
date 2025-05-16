@@ -9,7 +9,7 @@ body {
 }
 
 h2 {
-  color: #fff;
+  color: #e0d6c8;
   font-size: 1.75rem;
   font-weight: 600;
 }
@@ -19,7 +19,7 @@ h2 {
   border: 1px solid #333;
   border-radius: 12px;
   transition: border-color 0.3s ease;
-  color: #cacaca;
+  color: #e0d6c8;
 }
 
 .card:hover {
@@ -27,7 +27,7 @@ h2 {
 }
 
 .card-title {
-  color: #fff;
+  color: #e0d6c8;
   font-size: 1.2rem;
   font-weight: 500;
 }

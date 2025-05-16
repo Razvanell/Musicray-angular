@@ -20,10 +20,13 @@ import { CommonModule } from '@angular/common';
 export class TrackComponent {
   public playlists: Playlist[] = [];
   public tracks: Track[] = [];
+  private initialTracks: Track[] = [];
+  private allTracks: Track[] = [];
   public currentPlaylist!: Playlist;
   public currentPlaylistName: String = "Playlist";
   public viewAll = false;
   searchKey: string = '';
+
 
   constructor(public authService: AuthService,
     private trackService: TrackService,
@@ -32,7 +35,7 @@ export class TrackComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.getFiveTracks();
+    this.getRandomTracks();
     this.getUserPlaylists();
   }
 
@@ -41,10 +44,12 @@ export class TrackComponent {
     this.router.navigate(["/", "track"])
   }
 
-  public getFiveTracks(): void {
-    this.trackService.getFiveTracks().subscribe(
+  public getRandomTracks(): void {
+    this.trackService.getRandomTracks().subscribe(
       (response: Track[]) => {
         this.tracks = response;
+        this.allTracks = response;
+        this.initialTracks = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -52,10 +57,12 @@ export class TrackComponent {
     );
   }
 
+
   public getTracks(): void {
     this.trackService.getTracks().subscribe(
       (response) => {
         this.tracks = response;
+        this.allTracks = response; // keep a backup of full list
       },
       (error) => {
         alert(error.message);
@@ -64,22 +71,24 @@ export class TrackComponent {
   }
 
   public searchTracks(key: string): void {
-    console.log(key);
-    const results: Track[] = [];
-    for (const track of this.tracks) {
-      if (track.title.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !== -1 ||
-        track.artist.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !== -1) {
-        results.push(track);
+    const lowerKey = key.toLocaleLowerCase().trim();
+    // If search is cleared
+    if (!lowerKey) {
+      if (!this.currentPlaylist) {
+        this.tracks = [...this.initialTracks];  // go back to initial random tracks
+      } else {
+        this.tracks = [...this.allTracks];      // reset from playlist or full track list
       }
+      return;
     }
+
+    // Filter from allTracks
+    const results = this.allTracks.filter(track =>
+      track.title.toLowerCase().includes(lowerKey) ||
+      track.artist.toLowerCase().includes(lowerKey)
+    );
+
     this.tracks = results;
-    if (results.length === 0 || !key) {
-      setTimeout(
-        () => {
-          this.trackService.getTracks();
-        },
-        500);
-    }
   }
 
   public getUserPlaylists(): void {

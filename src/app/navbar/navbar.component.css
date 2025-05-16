@@ -32,8 +32,9 @@ a {
 
 /* Hover effect for links */
 a:hover {
-    background-color: #1db954;
-    /* Green background on hover */
-    color: #ffffff;
-    /* White text on hover */
+    background-color: #1ed760; /* brighter green */
+    color: #000000;            /* black text */
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    transition: all 0.3s ease;
 }

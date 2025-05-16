@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, Form } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -21,6 +21,7 @@ export class PlaylistComponent implements OnInit {
   public deletePlaylist!: Playlist;
   public putPlaylist!: Playlist;
   postForm: FormGroup;
+  putForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -32,6 +33,11 @@ export class PlaylistComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       name: ['', Validators.minLength(2)]
     });
+    this.putForm = this.formBuilder.group({
+      id: [null],
+      name: ['', Validators.minLength(2)]
+    });
+
   }
 
   ngOnInit(): void {
@@ -65,6 +71,10 @@ export class PlaylistComponent implements OnInit {
 
     if (mode === 'put' && playlist) {
       this.putPlaylist = playlist;
+      this.putForm.patchValue({
+        id: playlist.id,
+        name: playlist.name
+      });
       button.setAttribute('data-bs-target', '#putPlaylistModal');
     }
 
@@ -102,7 +112,10 @@ export class PlaylistComponent implements OnInit {
   public onPutPlaylist(playlist: Playlist): void {
     this.playlistService.putPlaylist(playlist).subscribe({
       next: () => this.getUserPlaylists(),
-      error: (error: HttpErrorResponse) => alert(error.message)
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+        this.putForm.reset();
+      }
     });
   }
 

@@ -1,28 +1,19 @@
-import { Component } from '@angular/core';
-import { TrackService } from '../track/track.service';   // Import TrackService
-import { MediaplayerService } from '../mediaplayer/mediaplayer.service';  // Import MediaplayerService
+import { Component, OnInit } from '@angular/core';
+import { TrackService } from '../track/track.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  public tracks: any[] = []; // Array to hold the tracks
+export class HomeComponent implements OnInit {
 
-  constructor(private trackService: TrackService, 
-              private mediaplayerService: MediaplayerService) {}
+  constructor(private trackService: TrackService) {}
 
-  ngOnInit() {
-    // Fetch tracks on component initialization
-    this.getTracks();
-  }
-
-  // Fetch tracks from the TrackService
-  public getTracks(): void {
+  ngOnInit(): void {
     this.trackService.getTracks().subscribe(
       (response: any[]) => {
-        this.tracks = response; // Store tracks in the tracks array
+        this.trackService.setTracks(response); // Save fetched tracks
       },
       (error: any) => {
         console.error('Error fetching tracks:', error);
@@ -30,19 +21,7 @@ export class HomeComponent {
     );
   }
 
-  // Play a random track
   public playRandomSong(): void {
-    if (this.tracks.length === 0) {
-      alert('No tracks available to play!');
-      return;
-    }
-
-    // Select a random track
-    const randomIndex = Math.floor(Math.random() * this.tracks.length);
-    const randomTrack = this.tracks[randomIndex];
-
-    // Call the playTrack method from the MediaplayerService to play the random track
-    this.mediaplayerService.changeAudioFileSource(`http://localhost:8080/api/track/play/${randomTrack.id}`);
-    console.log(`Playing random track: ${randomTrack.title} by ${randomTrack.artist}`);
+    this.trackService.playRandomSong();
   }
 }
