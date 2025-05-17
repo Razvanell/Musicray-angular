@@ -3,9 +3,28 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #121212; /* Spotify dark background */
-  color: #b3b3b3;            /* Light gray text for contrast */
+  color: #b3b3b3;            
   margin: 0;
+}
+
+.flow {
+  cursor: pointer;
+  background: linear-gradient(-45deg, #000000, #661ea6, #23a6d5, #297844, #000000);
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+  transition: transform 0.2s;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .play-button {
@@ -36,24 +55,3 @@
 .play-button:focus {
   outline: none;
 }
-
-.flow {
-  cursor: pointer;
-  background: linear-gradient(-45deg, #000000, #661ea6, #23a6d5, #297844, #000000);
-  background-size: 400% 400%;
-  animation: gradient 12s ease infinite;
-  transition: transform 0.2s;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-

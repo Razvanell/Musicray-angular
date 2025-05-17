@@ -54,24 +54,21 @@ export class RegistrationComponent implements OnInit {
   }
 
   // Registration submission method
-  onPostUser(): void {
-    if (this.registrationForm.valid) {
-      // Call AuthService to register the user
-      this.authService.postUser(this.registrationForm.value).subscribe(
-        (response: any) => {
-          const user = response.result.user;
-          user.token = response.result.token;
-          this.authService.setUser(user); // Store the user
-          this.registrationForm.reset(); // Reset the form
-          this.router.navigate(['/home']); // Redirect to home page
-        },
-        (error: HttpErrorResponse) => {
-          alert('Registration failed: ' + error.message);
-          this.registrationForm.reset();
-        }
-      );
-    } else {
-      alert('Please fill out all required fields correctly.');
-    }
+onPostUser(): void {
+  if (this.registrationForm.valid) {
+    this.authService.postUser(this.registrationForm.value).subscribe(
+      (response: any) => {
+        this.registrationForm.reset();
+        this.router.navigate(['/login']);  // <-- go to login page here
+      },
+      (error: HttpErrorResponse) => {
+        alert('Registration failed: ' + error.message);
+        this.registrationForm.reset();
+      }
+    );
+  } else {
+    alert('Please fill out all required fields correctly.');
   }
+}
+
 }

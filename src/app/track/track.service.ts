@@ -34,19 +34,4 @@ export class TrackService {
     return this.tracks;
   }
 
-  // Play a random track from stored tracks
-  public playRandomSong(): void {
-    if (this.tracks.length === 0) {
-      alert('No tracks available to play!');
-      return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * this.tracks.length);
-    const randomTrack = this.tracks[randomIndex];
-
-    this.mediaplayerService.changeAudioFileSource(
-      `${this.apiServerUrl}/track/play/${randomTrack.id}`
-    );
-    console.log(`Playing random track: ${randomTrack.title} by ${randomTrack.artist}`);
-  }
 }

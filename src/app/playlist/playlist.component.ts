@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, Form } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { AuthService } from '../navbar/auth.service';
 import { Playlist } from './playlist';
 import { PlaylistService } from './playlist.service';
 import { MediaplayerService } from '../mediaplayer/mediaplayer.service';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-playlist',
@@ -24,6 +25,7 @@ export class PlaylistComponent implements OnInit {
   putForm: FormGroup;
 
   constructor(
+    public authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private playlistService: PlaylistService,
@@ -52,37 +54,36 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
+  public isOwnPlaylist(): boolean {
+    const loggedInUser = this.authService.getUser();
+    return !!loggedInUser && loggedInUser.id === this.userId;
+  }
+
   public onOpenPlaylistModal(playlist: Playlist | null, mode: string): void {
-    // Bootstrap 5: trigger modal via JS API or [attr.data-bs-toggle] in template
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-bs-toggle', 'modal');
+    let modalId = '';
 
     if (mode === 'post') {
-      button.setAttribute('data-bs-target', '#postPlaylistModal');
-    }
-
-    if (mode === 'delete' && playlist) {
+      modalId = 'postPlaylistModal';
+    } else if (mode === 'delete' && playlist) {
       this.deletePlaylist = playlist;
-      button.setAttribute('data-bs-target', '#deletePlaylistModal');
-    }
-
-    if (mode === 'put' && playlist) {
+      modalId = 'deletePlaylistModal';
+    } else if (mode === 'put' && playlist) {
       this.putPlaylist = playlist;
       this.putForm.patchValue({
         id: playlist.id,
         name: playlist.name
       });
-      button.setAttribute('data-bs-target', '#putPlaylistModal');
+      modalId = 'putPlaylistModal';
     }
 
-    if (container) {
-      container.appendChild(button);
-      button.click();
+    if (!modalId) return;
+
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
     } else {
-      console.error('Container element not found');
+      console.error('Modal element not found:', modalId);
     }
   }
 

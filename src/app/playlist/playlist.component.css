@@ -1,10 +1,11 @@
+html,
 body {
-  background-color: #121212;
-  color: #e0d6c8;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
   margin: 0;
-  padding-bottom: 80px;
-  overflow-x: hidden;
+  background-color: #121212;
+  color: #b3b3b3;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 .content-wrapper {
@@ -24,12 +25,12 @@ h2 {
 }
 
 .card {
+  width: 100%;
   background-color: #1e1e1e;
   border: 1px solid #333;
   border-radius: 12px;
   transition: border-color 0.3s ease;
   color: #e0d6c8;
-  width: 100%;
 }
 
 .card:hover {
@@ -74,7 +75,16 @@ h2 {
 }
 
 .btn-modal {
-  width: 80px;
+  width: 110px;
+  height: 44px;
+  font-size: 18px;
+  padding: 8px 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
 }
 
 .btn-success {
@@ -134,7 +144,7 @@ h2 {
 input.form-control {
   background-color: #2a2a2a;
   border: 1px solid #444;
-  color: #fff;
+  color: #e0d6c8;
   border-radius: 6px;
 }
 

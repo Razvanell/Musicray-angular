@@ -1,15 +1,17 @@
 .media-player {
   background-color: transparent;
-  
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 99;
+
   display: flex;
-  justify-content: center;
+  justify-content: center; /* center container horizontally */
+  align-items: center;     /* vertical center items */
   padding: 8px;
   box-shadow: 0 -8px 12px rgba(0, 0, 0, 0.7);
   border: none;
+  gap: 10px; /* spacing between audio and button */
 }
 
 audio,
@@ -18,7 +20,7 @@ audio::-webkit-media-controls-panel {
   border-radius: 30px;
   width: 450px;
   padding: px;
-  background: linear-gradient(243deg, #2d6a4f 5%, #4f43bd 55%, #16b34a 80%, #2d6a4f 99%);
+  background: linear-gradient(-45deg, #16b34a -10%, #4f43bd 65%, #16b34a 100%);
   box-shadow:
     0 0 3px #2d6a4f,
     0 0 5px #40369a,
@@ -32,4 +34,34 @@ audio:hover {
     0 0 10px #2d6a4f,
     0 0 15px #40369a,
     0 0 20px #16b34a;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn {
+  background-color: #1aab4f;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  transition: background-color 0.3s ease;
+  color: #000000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    transition: all 0.5s ease;
 }

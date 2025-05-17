@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackService } from '../track/track.service';
+import { MediaplayerService } from '../mediaplayer/mediaplayer.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,10 @@ import { TrackService } from '../track/track.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TrackService,
+              private mediaplayerService: MediaplayerService
+
+  ) {}
 
   ngOnInit(): void {
     this.trackService.getTracks().subscribe(
@@ -22,6 +26,6 @@ export class HomeComponent implements OnInit {
   }
 
   public playRandomSong(): void {
-    this.trackService.playRandomSong();
+    this.mediaplayerService.playRandomSong();
   }
 }

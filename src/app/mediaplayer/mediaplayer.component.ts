@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MediaplayerService } from './mediaplayer.service';
 import { Subscription } from 'rxjs';
 import { TrackService } from '../track/track.service';
@@ -12,14 +12,26 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
   public audioFileSource: string = '';
   private subscription!: Subscription;
 
-  constructor(
-  private mediaplayerService: MediaplayerService,
-  private trackService: TrackService
-) {}
+  @ViewChild('audioPlayer', { static: false }) audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
-  ngOnInit(): void {
+  constructor(
+    private mediaplayerService: MediaplayerService,
+    private trackService: TrackService
+  ) { }
+
+ ngOnInit(): void {
+    // Subscribe to audio source updates
     this.subscription = this.mediaplayerService.currentAudioFileSource
       .subscribe(source => this.audioFileSource = source);
+
+    // Load tracks from TrackService and assign to MediaplayerService
+    this.trackService.getTracks().subscribe(tracks => {
+      this.mediaplayerService.tracks = tracks;
+
+      // Optionally, initialize playlist here or just play random
+      // If you have playlist URLs, call setPlaylist(...)
+      // Or start with a random song here
+    });
   }
 
   ngOnDestroy(): void {
@@ -27,6 +39,26 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
   }
 
   onTrackEnded(): void {
-  this.trackService.playRandomSong();
+    this.mediaplayerService.playRandomSong();
+  }
+
+  prevTrack(): void {
+    this.mediaplayerService.playPreviousTrack();
+  }
+
+  nextTrack(): void {
+    this.mediaplayerService.playRandomSong();
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeydown(event: KeyboardEvent): void {
+    if (event.code === 'Space') {
+      event.preventDefault();
+      const audio = this.audioPlayerRef?.nativeElement;
+      if (audio) {
+        audio.paused ? audio.play() : audio.pause();
+      }
+    }
+  }
 }
-}
+

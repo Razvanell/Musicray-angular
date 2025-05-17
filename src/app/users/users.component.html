@@ -1,15 +1,8 @@
 <div class="content-wrapper">
   <!-- Search bar -->
   <form class="d-flex justify-content-center mb-3 search">
-    <input 
-      class="form-control bg-dark" 
-      placeholder="Search users..." 
-      [(ngModel)]="searchKey" 
-      name="searchKey" 
-      (ngModelChange)="searchUsers(searchKey)" 
-      required 
-      autocomplete="off"
-    />
+    <input class="form-control" placeholder="Search users..." [(ngModel)]="searchKey" name="searchKey"
+      (ngModelChange)="searchUsers(searchKey)" autocomplete="off" />
   </form>
 
   <!-- User Cards Grid -->

@@ -3,7 +3,7 @@
   <!-- Create Playlist -->
   <div class="d-flex justify-content-between align-items-center mb-4 sticky-header">
     <h2>Your Playlists</h2>
-    <button class="btn btn-success btn-create" (click)="onOpenPlaylistModal(null, 'post')">
+    <button class="btn btn-success btn-create" *ngIf="isOwnPlaylist()" (click)="onOpenPlaylistModal(null, 'post')">
       <i class="fa fa-plus"></i> Create Playlist
     </button>
   </div>
@@ -17,10 +17,10 @@
         <div class="d-flex justify-content-between align-items-start mb-3">
           <h5 class="card-title mb-0">{{ playlist?.name }}</h5>
           <div class="btn-group">
-            <button class="btn btn-sm btn-outline-primary" (click)="onOpenPlaylistModal(playlist, 'put')">
+            <button class="btn btn-sm btn-outline-primary"  *ngIf="isOwnPlaylist()" (click)="onOpenPlaylistModal(playlist, 'put')">
               <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="onOpenPlaylistModal(playlist, 'delete')">
+            <button class="btn btn-sm btn-outline-danger"  *ngIf="isOwnPlaylist()" (click)="onOpenPlaylistModal(playlist, 'delete')">
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -35,7 +35,7 @@
               <button class="btn btn-sm btn-outline-success" (click)="playTrack(track.id)">
                 <i class="fa fa-play"></i>
               </button>
-              <button class="btn btn-sm btn-outline-danger" (click)="onRemoveTrack(playlist, track.id)">
+              <button class="btn btn-sm btn-outline-danger" *ngIf="isOwnPlaylist()" (click)="onRemoveTrack(playlist, track.id)">
                 <i class="fa fa-times"></i>
               </button>
             </div>
@@ -61,78 +61,71 @@
 
 <!-- Post Modal -->
 <div class="modal fade" id="postPlaylistModal" tabindex="-1" aria-labelledby="postPlaylistModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <form [formGroup]="postForm" class="modal-content bg-dark text-light">
-            <div class="modal-header">
-                <h5 class="modal-title">Create Playlist</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="playlist-name" class="form-label">Name</label>
-                <input id="playlist-name" type="text" formControlName="name" class="form-control"
-                    placeholder="Enter name" />
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-secondary btn-modal"
-                    data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-success btn-modal" [disabled]="postForm.invalid"
-                    data-bs-dismiss="modal" (click)="onPostPlaylist(); $event.preventDefault()">
-                    Create
-                </button>
-            </div>
-        </form>
-    </div>
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form [formGroup]="postForm" class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Playlist</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="playlist-name" class="form-label">Name</label>
+        <input id="playlist-name" type="text" formControlName="name" class="form-control" placeholder="Enter name" />
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-secondary btn-modal" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success btn-modal" [disabled]="postForm.invalid" data-bs-dismiss="modal"
+          (click)="onPostPlaylist(); $event.preventDefault()">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- Put Modal -->
 <div class="modal fade" id="putPlaylistModal" tabindex="-1" aria-labelledby="putPlaylistModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <form [formGroup]="putForm" class="modal-content bg-dark text-light">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Playlist</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" formControlName="id" />
-                <label for="playlist-edit-name" class="form-label">Name</label>
-                <input id="playlist-edit-name" type="text" formControlName="name" class="form-control" />
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-secondary btn-modal"
-                    data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-modal" (click)="onPutPlaylist(putForm.value)"
-                    data-bs-dismiss="modal">
-                    Save
-                </button>
-            </div>
-        </form>
-    </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <form [formGroup]="putForm" class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Playlist</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" formControlName="id" />
+        <label for="playlist-edit-name" class="form-label">Name</label>
+        <input id="playlist-edit-name" type="text" formControlName="name" class="form-control" />
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-secondary btn-modal" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary btn-modal" (click)="onPutPlaylist(putForm.value)"
+          data-bs-dismiss="modal">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deletePlaylistModal" tabindex="-1" aria-labelledby="deletePlaylistModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light">
-            <div class="modal-header">
-                <h5 class="modal-title">Delete Playlist</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                Are you sure you want to delete <strong>{{ deletePlaylist?.name }}</strong>?
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-secondary btn-modal"
-                    data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger btn-modal" (click)="onDeletePlaylist(deletePlaylist.id)"
-                    data-bs-dismiss="modal">
-                    Delete
-                </button>
-            </div>
-        </div>
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Playlist</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        Are you sure you want to delete <strong>{{ deletePlaylist?.name }}</strong>?
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-outline-secondary btn-modal" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger btn-modal" (click)="onDeletePlaylist(deletePlaylist.id)"
+          data-bs-dismiss="modal">
+          Delete
+        </button>
+      </div>
     </div>
+  </div>
 </div>

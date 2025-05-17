@@ -75,12 +75,12 @@ thead {
 /* Buttons */
 .btn {
     background-color: #1aab4f;
-    color: #000000;
-    font-weight: 600;
     border: none;
     border-radius: 4px;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s ease;
+    color: #000000;
+    font-weight: 600;
 }
 
 .btn:hover {
@@ -88,53 +88,9 @@ thead {
     color: #000000;
 }
 
-/* Green 'Add' button */
-.btn-outline-success,
-.btn-outline-success:hover {
-    min-width: 150px;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    background-color: #1aab4f;
-    color: #000000;
-}
-
-.btn-outline-success:hover {
-    background-color: #1ed760;
-    transform: scale(1.01);
-    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
-}
-
-/* Red 'Remove' button */
-.btn-outline-danger,
-.btn-outline-danger:hover {
-    min-width: 150px;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    background-color: #b03024;
-    color: #000000;
-}
-
-.btn-outline-danger:hover {
-    background-color: #c93828;
-    transform: scale(1.01);
-    box-shadow: 0 0 10px rgba(255, 80, 80, 0.5);
-}
-
 /* View all tracks button */
 #view-all-button {
     margin-left: 5px;
-}
-
-#view-all-button:hover {
-    background-color: #1ed760;
-    color: #000000;
-    transform: scale(1.00);
-    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
-    transition: all 0.3s ease;
 }
 
 /* Play button */
@@ -163,6 +119,48 @@ thead {
     font-size: 0.75rem;
 }
 
+/* Green 'Add' button */
+.btn-outline-success,
+.btn-outline-success:hover {
+    min-width: 150px;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #1aab4f;
+    color: #000000;
+}
+
+.btn-outline-success:hover {
+    background-color: #1ed760;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+}
+
+/* Red 'Remove' button */
+.btn-outline-danger,
+.btn-outline-danger:hover {
+    min-width: 150px;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #b03024;
+    color: #000000;
+}
+
+.btn-outline-danger:hover {
+    background-color: #c93828;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(255, 80, 80, 0.5);
+}
+
+#view-all-button:hover {
+    background-color: #1ed760;
+    color: #000000;
+    transform: scale(1.00);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    transition: all 0.3s ease;
+}
+
 /* Wrap highlight logic to the row */
 .track-row:hover .td-text-hover {
     color: #1db954;
@@ -175,7 +173,7 @@ thead {
 /* Dropdown Toggle Button */
 .dropdown-toggle {
     width: 156px;
-    margin-right: -2px;
+    margin-right: -1.6px;
     background-color: #1e1e1e;
     color: #1aab4f;
     border: 1px solid #333333;

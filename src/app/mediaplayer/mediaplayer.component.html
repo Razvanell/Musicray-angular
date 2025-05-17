@@ -1,7 +1,13 @@
-<!-- Media Player -->
 <div class="media-player">
+  <div class="controls">
+    <button class="btn" (click)="prevTrack()">⏮</button>
+  </div>
+
   <audio #audioPlayer controls [src]="audioFileSource" autoplay (ended)="onTrackEnded()">
     <source type="audio/mpeg">
   </audio>
-</div>
 
+  <div class="controls">
+    <button class="btn" (click)="nextTrack()">⏭</button>
+  </div>
+</div>

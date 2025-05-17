@@ -1,18 +1,24 @@
+html,
 body {
-  background-color: #121212;
-  color: #e0d6c8;
-  overflow: hidden;
+    height: 100%;
+    margin: 0;
+    background-color: #121212;
+    color: #b3b3b3;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
 .content-wrapper {
-  padding: 70px 20px 20px; /* 100px top padding to account for navbar */
+  padding: 70px 20px 20px;
+  /* 100px top padding to account for navbar */
 }
 
+/* Search input */
 input.form-control {
   width: 100%;
   max-width: 400px;
   background-color: #1e1e1e;
-  color: #ffffff;
+  color: #e0d6c8;
   border: 1px solid #333;
   border-radius: 4px;
   padding: 10px;
@@ -42,7 +48,7 @@ input.form-control:focus {
 
 .card {
   background-color: #1e1e1e;
-  color: #cacaca;
+  color: #e0d6c8;
   border-radius: 12px;
   transition: border 0.3s;
   border: 1px solid transparent;
@@ -59,7 +65,7 @@ input.form-control:focus {
 }
 
 h5 {
-  color: #fff;
+  color: #e0d6c8;
   font-size: 1rem;
   margin-bottom: 4px;
 }
