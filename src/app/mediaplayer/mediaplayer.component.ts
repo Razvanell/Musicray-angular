@@ -47,7 +47,7 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
   }
 
   nextTrack(): void {
-    this.mediaplayerService.playRandomSong();
+    this.mediaplayerService.playNextTrack();
   }
 
   @HostListener('window:keydown', ['$event'])

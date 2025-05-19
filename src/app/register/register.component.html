@@ -2,7 +2,7 @@
   <div class="login-card">
     <h2 class="login-title">Registration</h2>
 
-    <form [formGroup]="registrationForm" (ngSubmit)="onPostUser()">
+    <form [formGroup]="registerForm" (ngSubmit)="onPostUser()">
       <div class="input-group">
         <label for="firstName" class="input-label">First Name</label>
         <input type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name"
@@ -48,10 +48,10 @@
         </div>
       </div>
 
-      <button type="submit" class="registration-btn" [disabled]="registrationForm.invalid">Registration</button>
+      <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Register</button>
     </form>
 
-    <div class="registration-link">
+    <div class="register-link">
       <p>Already have an account? <a routerLink="/login">Login here</a></p>
     </div>
   </div>

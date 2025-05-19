@@ -5,21 +5,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-registration',
+  selector: 'app-register',
   imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class RegistrationComponent implements OnInit {
-  registrationForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
-    // Initialize the registration form
-    this.registrationForm = this.formBuilder.group({
+    // Initialize the register form
+    this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -34,36 +34,36 @@ export class RegistrationComponent implements OnInit {
 
   // Getters for easy access to form controls
   get firstName() {
-    return this.registrationForm.get('firstName');
+    return this.registerForm.get('firstName');
   }
 
   get lastName() {
-    return this.registrationForm.get('lastName');
+    return this.registerForm.get('lastName');
   }
 
   get email() {
-    return this.registrationForm.get('email');
+    return this.registerForm.get('email');
   }
 
   get password() {
-    return this.registrationForm.get('password');
+    return this.registerForm.get('password');
   }
 
   get confirmPassword() {
-    return this.registrationForm.get('confirmPassword');
+    return this.registerForm.get('confirmPassword');
   }
 
-  // Registration submission method
+  // Register submission method
 onPostUser(): void {
-  if (this.registrationForm.valid) {
-    this.authService.postUser(this.registrationForm.value).subscribe(
+  if (this.registerForm.valid) {
+    this.authService.postUser(this.registerForm.value).subscribe(
       (response: any) => {
-        this.registrationForm.reset();
+        this.registerForm.reset();
         this.router.navigate(['/login']);  // <-- go to login page here
       },
       (error: HttpErrorResponse) => {
         alert('Registration failed: ' + error.message);
-        this.registrationForm.reset();
+        this.registerForm.reset();
       }
     );
   } else {

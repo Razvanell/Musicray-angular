@@ -9,7 +9,7 @@
 
   <div class="collapse navbar-collapse justify-content-end">
     <!-- Login Link -->
-    <a *ngIf="authService?.user == undefined && !isLoginOrRegistrationPage()" class="nav-link" routerLink="/login">Login</a>
+    <a *ngIf="authService?.user == undefined && !isLoginOrRegisterPage()" class="nav-link" routerLink="/login">Login</a>
     <!-- User Email or 'Guest' -->
     <a *ngIf="authService.user as user" class="nav-link">{{ user.email || 'Guest' }}</a>
     <!-- Logout Link -->

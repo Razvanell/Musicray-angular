@@ -15,23 +15,27 @@ export class MediaplayerService {
 
   tracks: any[] = [];
 
-  // History of played tracks (URLs)
-  private playHistory: string[] = [];
-  private historyIndex: number = -1;
+  // Two stacks for history navigation
+  private backStack: string[] = [];
+  private forwardStack: string[] = [];
+  private currentTrack: string | null = null;
 
   constructor() { }
 
   public setPlaylist(sources: string[]): void {
     this.playlist = sources;
-    this.currentIndex = 0;
-    this.changeAudioFileSource(this.playlist[0]);
-    this.resetHistory(this.playlist[0]);
+    if (sources.length > 0) {
+      this.playNewTrack(sources[0]);
+    }
   }
 
-  // Reset history when a new track is set directly
-  private resetHistory(trackUrl: string) {
-    this.playHistory = [trackUrl];
-    this.historyIndex = 0;
+  private playNewTrack(trackUrl: string) {
+    if (this.currentTrack) {
+      this.backStack.push(this.currentTrack);
+    }
+    this.currentTrack = trackUrl;
+    this.forwardStack = [];
+    this.changeAudioFileSource(trackUrl);
   }
 
   public playRandomSong(): void {
@@ -44,40 +48,31 @@ export class MediaplayerService {
     const randomTrack = this.tracks[randomIndex];
     const trackUrl = `${this.apiServerUrl}/track/play/${randomTrack.id}`;
 
-    this.changeAudioFileSource(trackUrl);
-    this.addToHistory(trackUrl);
-
+    this.playNewTrack(trackUrl);
     console.log(`Playing random track: ${randomTrack.title} by ${randomTrack.artist}`);
   }
 
-  private addToHistory(trackUrl: string): void {
-    // If we are not at the end of history (user pressed prev then played new random),
-    // remove forward history before adding new
-    if (this.historyIndex < this.playHistory.length - 1) {
-      this.playHistory = this.playHistory.slice(0, this.historyIndex + 1);
-    }
-
-    this.playHistory.push(trackUrl);
-    this.historyIndex = this.playHistory.length - 1;
-  }
-
   public playPreviousTrack(): void {
-    if (this.historyIndex > 0) {
-      this.historyIndex--;
-      const prevTrack = this.playHistory[this.historyIndex];
-      this.changeAudioFileSource(prevTrack);
-    } else {
+    if (this.backStack.length === 0) {
       console.log('No previous track in history');
+      return;
     }
+
+    if (this.currentTrack) {
+      this.forwardStack.push(this.currentTrack);
+    }
+    this.currentTrack = this.backStack.pop()!;
+    this.changeAudioFileSource(this.currentTrack);
   }
 
   public playNextTrack(): void {
-    if (this.historyIndex < this.playHistory.length - 1) {
-      this.historyIndex++;
-      const nextTrack = this.playHistory[this.historyIndex];
-      this.changeAudioFileSource(nextTrack);
+    if (this.forwardStack.length > 0) {
+      if (this.currentTrack) {
+        this.backStack.push(this.currentTrack);
+      }
+      this.currentTrack = this.forwardStack.pop()!;
+      this.changeAudioFileSource(this.currentTrack);
     } else {
-      // If no next in history, fallback to random or playlist
       this.playRandomSong();
     }
   }

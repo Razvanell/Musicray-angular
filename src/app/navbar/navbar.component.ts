@@ -19,8 +19,8 @@ export class NavbarComponent {
     private router: Router
   ) {}
 
-  isLoginOrRegistrationPage(): boolean {
-  return this.router.url === '/login' || this.router.url === '/registration';
+  isLoginOrRegisterPage(): boolean {
+  return this.router.url === '/login' || this.router.url === '/register';
 }
 
 }

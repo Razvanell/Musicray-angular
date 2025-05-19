@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   public postUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiServerUrl}/registration`, user);
+    return this.http.post<User>(`${this.apiServerUrl}/register`, user);
   }
 
   public setUser(user: User): void {

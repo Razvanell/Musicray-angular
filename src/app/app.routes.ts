@@ -4,7 +4,7 @@ import { TrackComponent } from './track/track.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { HomeComponent } from './home/home.component';  // Import your new HomeComponent
 import { AuthGuard } from './navbar/auth.guard';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 
@@ -37,8 +37,8 @@ export const appRoutes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'registration',
-    component: RegistrationComponent
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: '**',
