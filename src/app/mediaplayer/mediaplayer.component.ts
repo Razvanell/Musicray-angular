@@ -10,6 +10,8 @@ import { TrackService } from '../track/track.service';
 })
 export class MediaplayerComponent implements OnInit, OnDestroy {
   public audioFileSource: string = '';
+  public repeat: boolean = false;
+
   private subscription!: Subscription;
 
   @ViewChild('audioPlayer', { static: false }) audioPlayerRef!: ElementRef<HTMLAudioElement>;
@@ -19,7 +21,7 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
     private trackService: TrackService
   ) { }
 
- ngOnInit(): void {
+  ngOnInit(): void {
     // Subscribe to audio source updates
     this.subscription = this.mediaplayerService.currentAudioFileSource
       .subscribe(source => this.audioFileSource = source);
@@ -39,8 +41,17 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
   }
 
   onTrackEnded(): void {
-    this.mediaplayerService.playRandomSong();
+    if (this.repeat) {
+      const audio = this.audioPlayerRef?.nativeElement;
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play();
+      }
+    } else {
+      this.mediaplayerService.playRandomSong();
+    }
   }
+
 
   prevTrack(): void {
     this.mediaplayerService.playPreviousTrack();
@@ -48,6 +59,10 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
 
   nextTrack(): void {
     this.mediaplayerService.playNextTrack();
+  }
+
+  toggleRepeat(): void {
+    this.repeat = !this.repeat;
   }
 
   @HostListener('window:keydown', ['$event'])

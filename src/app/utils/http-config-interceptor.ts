@@ -1,55 +1,43 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { AuthService } from "../navbar/auth.service";
+import { inject } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandlerFn,
+  HttpEvent,
+  HttpResponse,
+  HttpErrorResponse,
+  HttpInterceptorFn
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { AuthService } from '../navbar/auth.service';
 
-@Injectable()
-export class HttpConfigInterceptor implements HttpInterceptor {
+//It is now provided directly in main.ts
+export const httpConfigInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  const authService = inject(AuthService);
+  const token = authService.getToken();
 
-    constructor(private authService: AuthService) {}
+  // Build headers
+  let headers = req.headers.set('Accept', 'application/json');
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token: string = this.authService.getToken() || '';
+  if (token) {
+    headers = headers.set('Authorization', `Bearer ${token}`);
+  }
 
-        if (token) {
-            // Adding the Authorization header if a token is available
-            request = request.clone({ 
-                setHeaders: { 
-                    Authorization: `Bearer ${token}` 
-                }
-            });
-        }
+  if (!req.headers.has('Content-Type')) {
+    headers = headers.set('Content-Type', 'application/json');
+  }
 
-        // Setting default headers if not already present
-        if (!request.headers.has('Content-Type')) {
-            request = request.clone({ 
-                setHeaders: { 'Content-Type': 'application/json' } 
-            });
-        }
-        
-        request = request.clone({ 
-            setHeaders: { 'Accept': 'application/json' } 
-        });
+  const clonedReq = req.clone({ headers });
 
-        // Handle the request and log response, if successful
-        return next.handle(request).pipe(
-            map((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
-                    console.log('Response Event: ', event);
-                }
-                return event;
-            }),
-            
-            // Handling errors and logging the reason and status
-            catchError((error: HttpErrorResponse) => {
-                const errorData = {
-                    reason: error?.error?.reason || '',
-                    status: error.status
-                };
-                console.error('Error Occurred:', errorData); // Optional: Add logging for the error
-                return throwError(error); // Re-throw the error
-            })
-        );
-    }
-}
+  return next(clonedReq).pipe(
+    tap(event => {
+      if (event instanceof HttpResponse) {
+        console.log('Response Event:', event);
+      }
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.error('Error Occurred:', error);
+      return throwError(() => error);
+    })
+  );
+};

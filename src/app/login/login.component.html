@@ -1,20 +1,22 @@
 <div class="login-container">
   <div class="login-card">
     <h2 class="login-title">Login</h2>
-    
+
     <form [formGroup]="loginForm" (ngSubmit)="onLoginUser()">
       <div class="input-group">
         <label for="email" class="input-label">Email Address</label>
-        <input type="email" id="email" formControlName="email" placeholder="Enter your email" class="input-field" required>
-        <div *ngIf="email.invalid && email.touched" class="error-message">
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" class="input-field"
+          required />
+        <div *ngIf="email?.invalid && email?.touched" class="error-message">
           Please enter a valid email address.
         </div>
       </div>
-      
+
       <div class="input-group">
         <label for="password" class="input-label">Password</label>
-        <input type="password" id="password" formControlName="password" placeholder="Enter your password" class="input-field" required>
-        <div *ngIf="password.invalid && password.touched" class="error-message">
+        <input type="password" id="password" formControlName="password" placeholder="Enter your password"
+          class="input-field" required />
+        <div *ngIf="password?.invalid && password?.touched" class="error-message">
           Password is required.
         </div>
       </div>

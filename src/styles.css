@@ -11,3 +11,8 @@ body {
     background-color: #121212;
     /* background: linear-gradient(180deg, #121212 10%, #1c1c22 50%, #121212 90%); */
 }
+
+:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

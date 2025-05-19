@@ -17,10 +17,10 @@ export class NavbarComponent {
   constructor(
     public authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   isLoginOrRegisterPage(): boolean {
-  return this.router.url === '/login' || this.router.url === '/register';
-}
+    return this.router.url === '/login' || this.router.url === '/register';
+  }
 
 }

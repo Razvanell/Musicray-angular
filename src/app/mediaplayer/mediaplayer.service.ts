@@ -7,7 +7,6 @@ import { Injectable } from "@angular/core";
 })
 export class MediaplayerService {
   private playlist: string[] = [];
-  private currentIndex = -1;
   private apiServerUrl = environment.apiBaseUrl;
 
   private audioFileSource = new BehaviorSubject<string>("");

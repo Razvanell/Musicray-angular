@@ -5,9 +5,10 @@ import { MediaplayerComponent } from './mediaplayer/mediaplayer.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [NavbarComponent, RouterOutlet, MediaplayerComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'musicray';

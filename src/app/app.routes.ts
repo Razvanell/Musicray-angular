@@ -20,9 +20,10 @@ export const appRoutes: Routes = [
     component: UserComponent,
     canActivate: [AuthGuard],  // Protected route with AuthGuard
   },
-  {
+    {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuard], 
   },
   {
     path: 'track',
@@ -31,6 +32,7 @@ export const appRoutes: Routes = [
   {
     path: 'playlist/:userId',
     component: PlaylistComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',

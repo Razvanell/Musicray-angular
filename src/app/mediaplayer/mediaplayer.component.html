@@ -1,6 +1,6 @@
 <div class="media-player">
   <div class="controls">
-    <button class="btn" (click)="prevTrack()">⏮</button>
+    <button class="btn" (click)="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
   </div>
 
   <audio #audioPlayer controls [src]="audioFileSource" autoplay (ended)="onTrackEnded()">
@@ -8,6 +8,10 @@
   </audio>
 
   <div class="controls">
-    <button class="btn" (click)="nextTrack()">⏭</button>
+    <button class="btn" (click)="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+
+    <button class="btn repeat" (click)="toggleRepeat()" [class.active]="repeat">
+      <i class="fa-solid fa-repeat"></i>
+    </button>
   </div>
 </div>

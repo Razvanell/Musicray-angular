@@ -53,7 +53,6 @@ thead {
 .table td {
     padding: 0.75rem;
     border-bottom: 1px solid #444444;
-    /* Subtle bottom border */
 }
 
 .table th {
@@ -66,7 +65,7 @@ thead {
     font-size: 1rem;
 }
 
-/* Optional: Add a slight shadow to the rows for better separation */
+/* Row hover */
 .table tr:hover {
     background-color: #333333;
     transition: background-color 0.3s ease;
@@ -91,6 +90,14 @@ thead {
 /* View all tracks button */
 #view-all-button {
     margin-left: 5px;
+}
+
+#view-all-button:hover {
+    background-color: #1ed760;
+    color: #000000;
+    transform: scale(1.00);
+    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+    transition: all 0.3s ease;
 }
 
 /* Play button */
@@ -153,18 +160,9 @@ thead {
     box-shadow: 0 0 10px rgba(255, 80, 80, 0.5);
 }
 
-#view-all-button:hover {
-    background-color: #1ed760;
-    color: #000000;
-    transform: scale(1.00);
-    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
-    transition: all 0.3s ease;
-}
-
-/* Wrap highlight logic to the row */
+/* Hover highlight for track text */
 .track-row:hover .td-text-hover {
     color: #1db954;
-    /* Spotify Green */
     text-shadow: 0 0 5px rgba(30, 215, 96, 0.7);
     cursor: pointer;
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -182,7 +180,6 @@ thead {
     border-radius: 8px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .dropdown-toggle:hover {
@@ -195,9 +192,8 @@ thead {
 
 /* Dropdown Menu */
 .dropdown-menu {
+    position: fixed !important;
     width: 148px;
-    /* Match toggle button */
-    position: absolute;
     top: 100%;
     left: 0;
     z-index: 1000;
@@ -220,39 +216,34 @@ thead {
     cursor: pointer;
     transition: background-color 0.3s ease;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Hover and Active Styles */
 .dropdown-item:hover,
 .dropdown-item:active {
     background-color: #1db954;
     color: #000000;
 }
 
+/* Scrollbar styles */
 .table-responsive::-webkit-scrollbar {
     width: 8px;
 }
 
 .table-responsive::-webkit-scrollbar-track {
     background: #121212;
-    /* dark background */
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
     background-color: #1db954;
-    /* Spotify green */
     border-radius: 10px;
     border: 2px solid #121212;
-    /* same as background for padding effect */
 }
 
 .table-responsive::-webkit-scrollbar-thumb:hover {
     background-color: #1ed760;
 }
 
-/* Firefox scrollbar */
 .table-responsive {
     scrollbar-width: thin;
     scrollbar-color: #1e1e1e #121212;

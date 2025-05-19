@@ -3,15 +3,18 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 2000;
 
   display: flex;
-  justify-content: center; /* center container horizontally */
-  align-items: center;     /* vertical center items */
+  justify-content: center;
+  /* center container horizontally */
+  align-items: center;
+  /* vertical center items */
   padding: 8px;
   box-shadow: 0 -8px 12px rgba(0, 0, 0, 0.7);
   border: none;
-  gap: 10px; /* spacing between audio and button */
+  gap: 10px;
+  /* spacing between audio and button */
 }
 
 audio,
@@ -60,8 +63,27 @@ audio:hover {
 }
 
 .btn:hover {
-    background-color: #1ed760;
-    transform: scale(1.02);
-    box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
-    transition: all 0.5s ease;
+  background-color: #1ed760;
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
+  transition: all 0.5s ease;
+}
+
+.btn.repeat {
+  background-color: #888888;
+  /* gray when off */
+  color: #000;
+  /* black icon text for contrast */
+  transition: background-color 0.3s ease;
+}
+
+.btn.repeat.active {
+  background-color: #1aab4f;
+  /* green when on */
+  color: #000;
+}
+
+.btn.repeat.active:hover {
+  background-color: #1ed760;
+  transition: all 0.5s ease;
 }

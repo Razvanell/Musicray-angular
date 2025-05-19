@@ -70,26 +70,25 @@ export class TrackComponent {
     );
   }
 
-  public searchTracks(key: string): void {
-    const lowerKey = key.toLocaleLowerCase().trim();
-    // If search is cleared
-    if (!lowerKey) {
-      if (!this.currentPlaylist) {
-        this.tracks = [...this.initialTracks];  // go back to initial random tracks
-      } else {
-        this.tracks = [...this.allTracks];      // reset from playlist or full track list
-      }
-      return;
+public searchTracks(key: string): void {
+  const lowerKey = key.toLocaleLowerCase().trim();
+
+  if (!lowerKey) {
+    if (!this.currentPlaylist) {
+      this.tracks = [...this.initialTracks];  // no playlist: show initial random
+    } else {
+      this.tracks = [...this.currentPlaylist.tracks]; // show playlist tracks
     }
-
-    // Filter from allTracks
-    const results = this.allTracks.filter(track =>
-      track.title.toLowerCase().includes(lowerKey) ||
-      track.artist.toLowerCase().includes(lowerKey)
-    );
-
-    this.tracks = results;
+    return;
   }
+
+  const sourceTracks = this.currentPlaylist ? this.currentPlaylist.tracks : this.allTracks;
+
+  this.tracks = sourceTracks.filter(track =>
+    track.title.toLowerCase().includes(lowerKey) ||
+    track.artist.toLowerCase().includes(lowerKey)
+  );
+}
 
   public getUserPlaylists(): void {
     const user = this.authService.getUser();
@@ -107,13 +106,19 @@ export class TrackComponent {
     }
   }
 
-  public setCurrentPlaylist(currentPlaylist: Playlist): void {
-    if (currentPlaylist) {
-      this.currentPlaylist = currentPlaylist;
-      this.currentPlaylistName = currentPlaylist.name;
-      console.log(`Current playlist set to: ${this.currentPlaylistName}`);
-    }
+public setCurrentPlaylist(currentPlaylist: Playlist): void {
+  if (currentPlaylist) {
+    this.currentPlaylist = currentPlaylist;
+    this.currentPlaylistName = currentPlaylist.name;
+
+    // Show only tracks from this playlist
+    this.tracks = [...currentPlaylist.tracks]; 
+    this.searchKey = '';
+
+    console.log(`Current playlist set to: ${this.currentPlaylistName}`);
   }
+}
+
 
   public isCurrentPlaylistNull(): boolean {
     return !this.currentPlaylist;
