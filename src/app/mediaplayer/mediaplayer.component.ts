@@ -3,14 +3,17 @@ import { MediaplayerService } from './mediaplayer.service';
 import { Subscription } from 'rxjs';
 import { TrackService } from '../track/track.service';
 import { AIService } from '../utils/ai.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mediaplayer',
+  imports: [CommonModule],
   templateUrl: './mediaplayer.component.html',
   styleUrls: ['./mediaplayer.component.css']
 })
 export class MediaplayerComponent implements OnInit, OnDestroy {
   public audioFileSource: string = '';
+  public currentTrack: any = "track";
   public repeat: boolean = false;
 
   private subscription!: Subscription;
@@ -23,20 +26,24 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
     private AIService: AIService
   ) { }
 
-  ngOnInit(): void {
-    // Subscribe to audio source updates
-    this.subscription = this.mediaplayerService.currentAudioFileSource
-      .subscribe(source => this.audioFileSource = source);
-
-    // Load tracks from TrackService and assign to MediaplayerService
-    this.trackService.getTracks().subscribe(tracks => {
-      this.mediaplayerService.tracks = tracks;
-
-      // Optionally, initialize playlist here or just play random
-      // If you have playlist URLs, call setPlaylist(...)
-      // Or start with a random song here
+ngOnInit(): void {
+  // Subscribe to audio source updates
+  this.subscription = this.mediaplayerService.currentAudioFileSource
+    .subscribe(source => {
+      this.audioFileSource = source;
+      this.currentTrack = this.mediaplayerService.getCurrentTrack();
     });
-  }
+
+  // Load tracks from TrackService and assign to MediaplayerService
+  this.trackService.getTracks().subscribe(tracks => {
+    this.mediaplayerService.tracks = tracks;
+
+    // Optionally, initialize playlist here or just play random
+    // If you have playlist URLs, call setPlaylist(...)
+    // Or start with a random song here
+  });
+}
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

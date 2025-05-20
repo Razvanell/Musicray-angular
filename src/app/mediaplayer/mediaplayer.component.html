@@ -1,5 +1,9 @@
 <div class="media-player">
 
+  <div class="currentTrack" *ngIf="currentTrack"><i class="fa-solid fa-music"></i>
+    {{ currentTrack.artist }} - {{ currentTrack.title }}
+  </div>
+
   <button class="btn info" (click)="fetchTrackInfoOpenAI()">
     <i class="fa-solid fa-info"></i>
   </button>

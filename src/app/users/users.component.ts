@@ -16,20 +16,6 @@ export class UsersComponent implements OnInit {
   public users: User[] = [];
   public searchKey: string = '';  // Added searchKey for two-way binding
 
-  private getEmptyUser(): User {
-    return {
-      id: 0,
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      imageUrl: '',
-      enabled: false,
-      token: ''
-    };
-  }
-
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {

@@ -27,7 +27,10 @@ export const httpConfigInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, 
     headers = headers.set('Content-Type', 'application/json');
   }
 
-  const clonedReq = req.clone({ headers });
+  const clonedReq = req.clone({
+    headers,
+    withCredentials: true
+  });
 
   return next(clonedReq).pipe(
     tap(event => {
