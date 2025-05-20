@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } fro
 import { MediaplayerService } from './mediaplayer.service';
 import { Subscription } from 'rxjs';
 import { TrackService } from '../track/track.service';
+import { AIService } from '../utils/ai.service';
 
 @Component({
   selector: 'app-mediaplayer',
@@ -18,7 +19,8 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
 
   constructor(
     private mediaplayerService: MediaplayerService,
-    private trackService: TrackService
+    private trackService: TrackService,
+    private AIService: AIService
   ) { }
 
   ngOnInit(): void {
@@ -75,5 +77,23 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+
+  // AI Functionality
+  fetchTrackInfoOpenAI() {
+    const currentTrack = this.mediaplayerService.getCurrentTrack();
+    if (!currentTrack) {
+      alert('No track is currently playing.');
+      return;
+    }
+    this.AIService.fetchTrackInfoOpenAI(currentTrack).subscribe({
+      next: (response: string) => alert(response),
+      error: (err: any) => {
+        alert('Error fetching info from OpenAI. Please try again later.');
+        console.error(err);
+      }
+    });
+  }
+
 }
 

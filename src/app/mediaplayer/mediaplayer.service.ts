@@ -21,22 +21,6 @@ export class MediaplayerService {
 
   constructor() { }
 
-  public setPlaylist(sources: string[]): void {
-    this.playlist = sources;
-    if (sources.length > 0) {
-      this.playNewTrack(sources[0]);
-    }
-  }
-
-  private playNewTrack(trackUrl: string) {
-    if (this.currentTrack) {
-      this.backStack.push(this.currentTrack);
-    }
-    this.currentTrack = trackUrl;
-    this.forwardStack = [];
-    this.changeAudioFileSource(trackUrl);
-  }
-
   public playRandomSong(): void {
     if (!this.tracks || this.tracks.length === 0) {
       alert('No tracks available to play!');
@@ -47,8 +31,29 @@ export class MediaplayerService {
     const randomTrack = this.tracks[randomIndex];
     const trackUrl = `${this.apiServerUrl}/track/play/${randomTrack.id}`;
 
-    this.playNewTrack(trackUrl);
+    if (this.currentTrack) {
+      this.backStack.push(this.currentTrack);
+    }
+    this.currentTrack = trackUrl;
+    this.forwardStack = [];
+    this.changeAudioFileSource(trackUrl);
+
     console.log(`Playing random track: ${randomTrack.title} by ${randomTrack.artist}`);
+  }
+
+
+  public getCurrentTrack(): any | null {
+    if (!this.currentTrack) return null;
+
+    // Extract the track id from currentTrack URL
+    const parts = this.currentTrack.split('/');
+    const idStr = parts[parts.length - 1]; // last part is the id
+    const trackId = Number(idStr);
+
+    if (isNaN(trackId)) return null;
+
+    // Find track in the tracks array by id
+    return this.tracks.find(track => track.id === trackId) || null;
   }
 
   public playPreviousTrack(): void {
