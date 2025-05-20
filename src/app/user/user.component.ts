@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { User } from './user';
 import { UserService } from './user.service';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { SearchService } from '../navbar/search.service';
 @Component({
   selector: 'app-user',
   imports: [FormsModule, CommonModule, RouterModule],
@@ -32,10 +32,14 @@ export class UserComponent implements OnInit {
     };
   }
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private searchService: SearchService) { }
 
   ngOnInit(): void {
     this.getUsers();
+
+    this.searchService.searchKey$.subscribe(key => {
+      this.searchUsers(key);
+    });
   }
 
   public getUsers(): void {
@@ -50,22 +54,22 @@ export class UserComponent implements OnInit {
   }
 
   public searchUsers(key: string): void {
-    console.log(key);
-    const results: User[] = [];
-    for (const user of this.users) {
-      if (user.email.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-          user.firstName.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-          user.lastName.toLocaleLowerCase().includes(key.toLocaleLowerCase())) {
-        results.push(user);
-      }
+    const lowerKey = key.toLocaleLowerCase().trim();
+
+    if (!lowerKey) {
+      this.getUsers();
+      return;
     }
+
+    const results = this.users.filter(user =>
+      user.email.toLowerCase().includes(lowerKey) ||
+      user.firstName.toLowerCase().includes(lowerKey) ||
+      user.lastName.toLowerCase().includes(lowerKey)
+    );
+
     this.users = results;
-    if (results.length === 0 || !key) {
-      setTimeout(() => {
-        this.getUsers();
-      }, 500);
-    }
   }
+
 
   public onOpenModal(user: User, mode: string): void {
     const container = document.getElementById('main-container');
@@ -73,7 +77,7 @@ export class UserComponent implements OnInit {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    
+
     if (mode === 'delete') {
       this.deleteUser = user;
       button.setAttribute('data-target', '#deleteUserModal');

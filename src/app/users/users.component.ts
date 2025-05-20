@@ -5,6 +5,7 @@ import { UserService } from '../user/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../navbar/search.service';
 
 @Component({
   selector: 'app-users',
@@ -14,12 +15,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
   public users: User[] = [];
-  public searchKey: string = '';  // Added searchKey for two-way binding
+  public searchKey: string = '';
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router,
+    private userService: UserService,
+    private searchService: SearchService) { }
 
   ngOnInit(): void {
     this.getUsers();
+
+    this.searchService.searchKey$.subscribe(key => {
+      this.searchUsers(key);
+    });
   }
 
   // Fetch the full user list
@@ -34,19 +41,20 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  // Search users based on the input key
   public searchUsers(key: string): void {
-    console.log(key); // Log the search key to check if the method is triggered
-    if (!key) {
-      // If the search input is empty, fetch all users
+    const lowerKey = key.toLocaleLowerCase().trim();
+
+    if (!lowerKey) {
       this.getUsers();
       return;
     }
-    const results: User[] = this.users.filter(user =>
-      user.email.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-      user.firstName.toLocaleLowerCase().includes(key.toLocaleLowerCase()) ||
-      user.lastName.toLocaleLowerCase().includes(key.toLocaleLowerCase())
+
+    const results = this.users.filter(user =>
+      user.email.toLowerCase().includes(lowerKey) ||
+      user.firstName.toLowerCase().includes(lowerKey) ||
+      user.lastName.toLowerCase().includes(lowerKey)
     );
+
     this.users = results;
   }
 

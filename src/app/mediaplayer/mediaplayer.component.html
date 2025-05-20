@@ -1,7 +1,9 @@
 <div class="media-player">
 
-  <div class="currentTrack" *ngIf="currentTrack"><i class="fa-solid fa-music"></i>
-    {{ currentTrack.artist }} - {{ currentTrack.title }}
+  <div class="currentTrack" *ngIf="currentTrack">
+    <i class="fa-solid fa-music"></i>
+    <span class="artist">&nbsp;{{ currentTrack.artist }}</span><br>
+    <span class="title">{{ currentTrack.title }}</span>
   </div>
 
   <button class="btn info" (click)="fetchTrackInfoOpenAI()">

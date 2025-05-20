@@ -1,5 +1,6 @@
 .media-player {
-  background-color: solid;;
+  background-color: solid;
+  ;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -20,15 +21,25 @@
 .currentTrack {
   animation: LeftToRight 10s infinite normal;
   position: absolute;
-  left: 10px;       /* distance from left edge */
+  left: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: calc();
-  font-size: 12px;
   color: #16b34a;
   max-width: 400px;
-  pointer-events: none; /* so it doesn't interfere with clicks */
+  pointer-events: none;
+  /* so it doesn't interfere with clicks */
 }
+
+.currentTrack .artist {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.currentTrack .title {
+  font-size: 13px;
+}
+
 
 audio,
 audio::-webkit-media-controls-panel {

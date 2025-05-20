@@ -1,19 +1,37 @@
 <nav class="navbar navbar-expand-lg">
+  <div class="navbar-inner">
 
-  <!-- Homepage -->
-  <a class="nav-link" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Music-Ray</a>
+    <!-- Homepage -->
+    <a class="nav-link" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Music-Ray</a>
 
-  <!-- Visible only if user is logged in -->
-  <a *ngIf="authService?.user" class="nav-link" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">User Playlists</a>
-  <a *ngIf="authService?.user" class="nav-link" routerLink="/track" routerLinkActive="active" ariaCurrentWhenActive="page">Discover Music</a>
+    <!-- Visible only if user is logged in -->
+    <a *ngIf="authService?.user" class="nav-link" routerLink="/users" routerLinkActive="active" ariaCurrentWhenActive="page">User Playlists</a>
+    <a *ngIf="authService?.user" class="nav-link" routerLink="/track" routerLinkActive="active" ariaCurrentWhenActive="page">Discover Music</a>
 
-  <div class="collapse navbar-collapse justify-content-end">
-    <!-- Login Link -->
-    <a *ngIf="authService?.user == undefined && !isLoginOrRegisterPage()" class="nav-link" routerLink="/login">Login</a>
-    <!-- User Email or 'Guest' -->
-    <a *ngIf="authService.user as user" class="nav-link">{{ user.email || 'Guest' }}</a>
-    <!-- Logout Link -->
-    <a *ngIf="authService?.user != undefined" class="nav-link" (click)="authService.logOut()">Logout</a>
+    <!-- Search Bar: Visible if user is logged in on /users and /track pages -->
+    <form
+      *ngIf="authService?.user && (router.url.startsWith('/users') || router.url.startsWith('/track'))"
+      class="d-flex mx-auto search"
+      style="width: 300px;">
+      <input
+        class="form-control"
+        placeholder="Search..."
+        [(ngModel)]="searchKey"
+        name="searchKey"
+        (ngModelChange)="onSearchChange($event)"
+        autocomplete="off"
+      />
+    </form>
+
+
+    <div class="collapse navbar-collapse justify-content-end">
+      <!-- Login Link -->
+      <a *ngIf="authService?.user == undefined && !isLoginOrRegisterPage()" class="nav-link" routerLink="/login">Login</a>
+      <!-- User Email or 'Guest' -->
+      <a *ngIf="authService.user as user" class="nav-link">{{ user.email || 'Guest' }}</a>
+      <!-- Logout Link -->
+      <a *ngIf="authService?.user != undefined" class="nav-link" (click)="authService.logOut()">Logout</a>
+    </div>
+
   </div>
-
 </nav>

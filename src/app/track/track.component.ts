@@ -10,6 +10,7 @@ import { MediaplayerService } from '../mediaplayer/mediaplayer.service';
 import { AuthService } from '../navbar/auth.service';
 import { Track } from '../track/track';
 import { CommonModule } from '@angular/common';
+import { SearchService } from '../navbar/search.service';
 
 @Component({
   selector: 'app-track',
@@ -29,6 +30,7 @@ export class TrackComponent {
 
 
   constructor(public authService: AuthService,
+    private searchService: SearchService,
     private trackService: TrackService,
     private playlistService: PlaylistService,
     private mediaplayerService: MediaplayerService,
@@ -37,8 +39,11 @@ export class TrackComponent {
   ngOnInit() {
     this.getRandomTracks();
     this.getUserPlaylists();
-  }
 
+    this.searchService.searchKey$.subscribe(key => {
+      this.searchTracks(key);
+    });
+  }
 
   openComponent(): void {
     this.router.navigate(["/", "track"])
@@ -70,25 +75,25 @@ export class TrackComponent {
     );
   }
 
-public searchTracks(key: string): void {
-  const lowerKey = key.toLocaleLowerCase().trim();
+  public searchTracks(key: string): void {
+    const lowerKey = key.toLocaleLowerCase().trim();
 
-  if (!lowerKey) {
-    if (!this.currentPlaylist) {
-      this.tracks = [...this.initialTracks];  // no playlist: show initial random
-    } else {
-      this.tracks = [...this.currentPlaylist.tracks]; // show playlist tracks
+    if (!lowerKey) {
+      if (!this.currentPlaylist) {
+        this.tracks = [...this.initialTracks];  // no playlist: show initial random
+      } else {
+        this.tracks = [...this.currentPlaylist.tracks]; // show playlist tracks
+      }
+      return;
     }
-    return;
+
+    const sourceTracks = this.currentPlaylist ? this.currentPlaylist.tracks : this.allTracks;
+
+    this.tracks = sourceTracks.filter(track =>
+      track.title.toLowerCase().includes(lowerKey) ||
+      track.artist.toLowerCase().includes(lowerKey)
+    );
   }
-
-  const sourceTracks = this.currentPlaylist ? this.currentPlaylist.tracks : this.allTracks;
-
-  this.tracks = sourceTracks.filter(track =>
-    track.title.toLowerCase().includes(lowerKey) ||
-    track.artist.toLowerCase().includes(lowerKey)
-  );
-}
 
   public getUserPlaylists(): void {
     const user = this.authService.getUser();
@@ -106,18 +111,18 @@ public searchTracks(key: string): void {
     }
   }
 
-public setCurrentPlaylist(currentPlaylist: Playlist): void {
-  if (currentPlaylist) {
-    this.currentPlaylist = currentPlaylist;
-    this.currentPlaylistName = currentPlaylist.name;
+  public setCurrentPlaylist(currentPlaylist: Playlist): void {
+    if (currentPlaylist) {
+      this.currentPlaylist = currentPlaylist;
+      this.currentPlaylistName = currentPlaylist.name;
 
-    // Show only tracks from this playlist
-    this.tracks = [...currentPlaylist.tracks]; 
-    this.searchKey = '';
+      // Show only tracks from this playlist
+      this.tracks = [...currentPlaylist.tracks];
+      this.searchKey = '';
 
-    console.log(`Current playlist set to: ${this.currentPlaylistName}`);
+      console.log(`Current playlist set to: ${this.currentPlaylistName}`);
+    }
   }
-}
 
 
   public isCurrentPlaylistNull(): boolean {

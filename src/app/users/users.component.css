@@ -1,37 +1,6 @@
-html,
-body {
-    height: 100%;
-    margin: 0;
-    background-color: #121212;
-    color: #b3b3b3;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-}
-
 .content-wrapper {
-  padding: 70px 20px 20px;
+  padding: 85px 20px 20px;
   /* 100px top padding to account for navbar */
-}
-
-/* Search input */
-input.form-control {
-  width: 100%;
-  max-width: 400px;
-  background-color: #1e1e1e;
-  color: #e0d6c8;
-  border: 1px solid #333;
-  border-radius: 4px;
-  padding: 10px;
-}
-
-input.form-control::placeholder {
-  color: #777;
-}
-
-input.form-control:focus {
-  outline: none;
-  border-color: #1db954;
-  box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
 }
 
 .user-grid {

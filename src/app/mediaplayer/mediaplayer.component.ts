@@ -26,23 +26,23 @@ export class MediaplayerComponent implements OnInit, OnDestroy {
     private AIService: AIService
   ) { }
 
-ngOnInit(): void {
-  // Subscribe to audio source updates
-  this.subscription = this.mediaplayerService.currentAudioFileSource
-    .subscribe(source => {
-      this.audioFileSource = source;
-      this.currentTrack = this.mediaplayerService.getCurrentTrack();
+  ngOnInit(): void {
+    // Subscribe to audio source updates
+    this.subscription = this.mediaplayerService.currentAudioFileSource
+      .subscribe(source => {
+        this.audioFileSource = source;
+        this.currentTrack = this.mediaplayerService.getCurrentTrack();
+      });
+
+    // Load tracks from TrackService and assign to MediaplayerService
+    this.trackService.getTracks().subscribe(tracks => {
+      this.mediaplayerService.tracks = tracks;
+
+      // Optionally, initialize playlist here or just play random
+      // If you have playlist URLs, call setPlaylist(...)
+      // Or start with a random song here
     });
-
-  // Load tracks from TrackService and assign to MediaplayerService
-  this.trackService.getTracks().subscribe(tracks => {
-    this.mediaplayerService.tracks = tracks;
-
-    // Optionally, initialize playlist here or just play random
-    // If you have playlist URLs, call setPlaylist(...)
-    // Or start with a random song here
-  });
-}
+  }
 
 
   ngOnDestroy(): void {
@@ -76,7 +76,14 @@ ngOnInit(): void {
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Space') {
+    const target = event.target as HTMLElement;
+
+    const isInputField =
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.isContentEditable;
+
+    if (event.code === 'Space' && !isInputField) {
       event.preventDefault();
       const audio = this.audioPlayerRef?.nativeElement;
       if (audio) {
@@ -84,7 +91,6 @@ ngOnInit(): void {
       }
     }
   }
-
 
   // AI Functionality
   fetchTrackInfoOpenAI() {

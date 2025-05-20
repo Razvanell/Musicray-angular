@@ -8,13 +8,23 @@
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.7);
     padding: 8px;
     border: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Inner container to handle positioning */
+.navbar-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 /* Ensure links are aligned properly */
 .navbar-collapse {
     display: flex;
     justify-content: flex-end;
-    /* Align login/logout to the right */
+    flex-grow: 1;
 }
 
 /* Link styling */
@@ -35,10 +45,37 @@ a {
 /* Hover effect for links */
 a:hover {
     background-color: #1ed760;
-    /* brighter green */
     color: #000000;
-    /* black text */
     transform: scale(1.02);
     box-shadow: 0 0 10px rgba(30, 215, 96, 0.5);
     transition: all 0.3s ease;
+}
+
+/* Centered search bar */
+.search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+}
+
+/* Search input */
+input.form-control {
+    width: 100%;
+    max-width: 400px;
+    background-color: #1e1e1e;
+    color: #e0d6c8;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+input.form-control::placeholder {
+    color: #777;
+}
+
+input.form-control:focus {
+    outline: none;
+    border-color: #1db954;
+    box-shadow: 0 0 0 0.2rem rgba(30, 215, 96, 0.25);
 }
