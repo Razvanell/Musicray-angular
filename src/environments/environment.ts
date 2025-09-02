@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
+  production: true,
+  apiBaseUrl: window.location.origin + '/api'
   // apiBaseUrl: 'https://010c-2a02-8388-e539-9700-c941-95d6-e8f8-8b0f.ngrok-free.app' + '/api'
-  apiBaseUrl: 'http://localhost:8080/api'
 };
 
 /*
