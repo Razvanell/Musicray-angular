@@ -7,7 +7,7 @@
         <label for="firstName" class="input-label">First Name</label>
         <input type="text" id="firstName" formControlName="firstName" placeholder="Enter your first name"
           class="input-field" required>
-        <div *ngIf="firstName.invalid && firstName.touched" class="error-message">
+        <div *ngIf="firstName?.invalid && firstName?.touched" class="error-message">
           Please enter your first name.
         </div>
       </div>
@@ -16,7 +16,7 @@
         <label for="lastName" class="input-label">Last Name</label>
         <input type="text" id="lastName" formControlName="lastName" placeholder="Enter your last name"
           class="input-field" required>
-        <div *ngIf="lastName.invalid && lastName.touched" class="error-message">
+        <div *ngIf="lastName?.invalid && lastName?.touched" class="error-message">
           Please enter your last name.
         </div>
       </div>
@@ -25,7 +25,7 @@
         <label for="email" class="input-label">Email Address</label>
         <input type="email" id="email" formControlName="email" placeholder="Enter your email" class="input-field"
           required>
-        <div *ngIf="email.invalid && email.touched" class="error-message">
+        <div *ngIf="email?.invalid && email?.touched" class="error-message">
           Please enter a valid email address.
         </div>
       </div>
@@ -34,7 +34,7 @@
         <label for="password" class="input-label">Password</label>
         <input type="password" id="password" formControlName="password" placeholder="Enter your password"
           class="input-field" required>
-        <div *ngIf="password.invalid && password.touched" class="error-message">
+        <div *ngIf="password?.invalid && password?.touched" class="error-message">
           Password is required.
         </div>
       </div>
@@ -43,12 +43,12 @@
         <label for="confirmPassword" class="input-label">Confirm Password</label>
         <input type="password" id="confirmPassword" formControlName="confirmPassword"
           placeholder="Confirm your password" class="input-field" required>
-        <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="error-message">
+        <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
           Please confirm your password.
         </div>
       </div>
 
-      <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Register</button>
+      <button type="submit" class="register-btn" [disabled]="registerForm?.invalid">Register</button>
     </form>
 
     <div class="register-link">
